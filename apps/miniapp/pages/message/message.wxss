@@ -1,0 +1,119 @@
+/* pages/message/message.wxss */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f4f4f4;
+}
+
+/* 提示样式（加载中、空状态） */
+.tips-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 200rpx;
+  color: #999;
+}
+.empty-image {
+  width: 200rpx;
+  height: 200rpx;
+  margin-bottom: 20rpx;
+}
+.tips-text {
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 消息列表 */
+.conversation-list {
+  width: 100%;
+}
+
+.convo-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+  background-color: #fff;
+  border-bottom: 1rpx solid #f0f0f0;
+  transition: background-color 0.2s;
+}
+/* 点击态 */
+.convo-item:active {
+  background-color: #f9f9f9;
+}
+
+/* 头像 */
+.avatar-wrapper {
+  position: relative;
+  margin-right: 20rpx;
+}
+.avatar {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  background-color: #eee;
+}
+
+/* 未读角标 */
+.unread-badge {
+  position: absolute;
+  top: -4rpx;
+  right: -4rpx;
+  background-color: #e44d26; /* 红色 */
+  color: #fff;
+  font-size: 20rpx;
+  font-weight: bold;
+  border-radius: 50%;
+  min-width: 36rpx;
+  height: 36rpx;
+  padding: 0 6rpx;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2rpx solid #fff;
+}
+
+/* 消息信息 */
+.convo-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* 防止被挤压 */
+  overflow: hidden;
+}
+
+.info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+.username {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #333;
+  /* 防止用户名过长 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 400rpx;
+}
+.time {
+  font-size: 24rpx;
+  color: #999;
+  flex-shrink: 0; /* 防止时间被挤压 */
+}
+
+.info-footer {
+}
+.last-message {
+  font-size: 26rpx;
+  color: #777;
+  /* 关键：消息过长时显示省略号 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,0 +1,89 @@
+<!--pages/homepage/homepage.wxml-->
+<view class="page-container">
+  <view class="search-bar-wrapper">
+    <image class="scan-icon" src="/images/scan-icon.png" bindtap="onScanCode" mode="aspectFit" />
+    <view class="search-mock" bindtap="goToSearchPage">
+      <icon type="search" size="14" color="#999" class="search-icon-inline"/>
+      <text class="search-placeholder">搜索闲置物品...</text>
+    </view>
+  </view>
+  <view class="notice-bar" bindtap="goToAnnouncement">
+    <image class="notice-icon" src="/images/speaker-icon.png" mode="aspectFit" />
+    <swiper class="notice-swiper" vertical autoplay circular interval="3000">
+      <block wx:for="{{announcementList}}" wx:key="index">
+        <swiper-item>
+          <view class="notice-item">{{item.title}}</view>
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="notice-arrow">></view>
+  </view>
+
+  <swiper class="swiper-container" indicator-dots autoplay circular>
+    <block wx:for="{{swiperList}}" wx:key="id">
+      <swiper-item>
+        <image src="{{item.url}}" class="swiper-image" mode="aspectFill" />
+      </swiper-item>
+    </block>
+  </swiper>
+
+  <view class="filter-bar">
+    <picker bindchange="onCategoryChange" value="{{categoryIndex}}" range="{{categories}}">
+      <view class="filter-item">{{categories[categoryIndex]}} ▼</view>
+    </picker>
+    <picker bindchange="onSortChange" value="{{sortIndex}}" range="{{sortOptions}}">
+      <view class="filter-item">{{sortOptions[sortIndex]}} ▼</view>
+    </picker>
+  </view>
+
+  <view class="balance-slider-wrapper" wx:if="{{sortIndex === 4}}">
+    <view class="slider-labels">
+      <text>偏向价格 {{balancePrice}}%</text>
+      <text>{{balanceDistance}}% 偏向距离</text>
+    </view>
+    <slider
+      block-size="20"
+      min="0"
+      max="100"
+      step="5"
+      value="{{balancePrice}}"
+      bindchange="onBalanceChange"
+      activeColor="#007aff"
+      backgroundColor="#e9e9e9"
+      block-color="#007aff"
+    />
+  </view>
+
+  <view class="product-list">
+    <block wx:for="{{products}}" wx:for-item="item" wx:for-index="idx" wx:key="id">
+      <view class="product-item" data-id="{{item.id}}" bindtap="goToProductDetail" hover-class="product-item-hover">
+        <image class="product-bg-image" src="/images/card_preset_bg.png" mode="aspectFill" />
+
+        <view class="product-content-wrapper">
+        <view class="product-info">
+          <text class="product-name">{{item.name}}</text>
+          <view class="product-price">
+            <text class="price-currency">¥</text>
+            <text class="price-value">{{item.price}}</text>
+          </view>
+          <view class="product-location-wrapper">
+            <image class="location-icon" src="/images/location.png" mode="aspectFit" />
+            <text class="product-location-text">{{item.position || item.user.address || '未知地点'}}</text>
+          </view>
+          <view class="tag-way">{{item.way || '未知配送方式'}}</view>
+          <text class="product-desc">{{item.description}}</text>
+        </view>
+        <view class="image-wrapper">
+          <image class="product-image" src="{{item.images}}" mode="aspectFill" />
+          <view class="sold-out-mask" wx:if="{{item.status === 1}}">
+          <text>已售</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    </block>
+    <view class="loading-tip" wx:if="{{isLoading}}">正在加载...</view>
+    <view class="loading-tip" wx:if="{{!hasMore && products.length > 0}}">--- 我是有底线的 ---</view>
+    <view class="empty-tip" wx:if="{{products.length === 0 && !isLoading}}">暂无商品</view>
+  </view>
+</view>

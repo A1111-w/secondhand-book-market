@@ -1,0 +1,21 @@
+<view class="container">
+  <view class="logo-area">
+    <image class="logo" src="/images/icon-about.png" mode="widthFix" />
+    <text class="app-name">校园知识再利用</text>
+    <text class="version">Version 1.0.0</text>
+  </view>
+
+  <view class="intro-area">
+    <text class="intro-text">
+      这是一个由本校学生独立开发的闲置物品交易平台。
+
+      我们要做的，不仅是让闲置物品流转起来，更是为了让知识和价值在校园里延续。
+
+      每一本书，每一个旧物件，都承载着学长学姐的故事。希望它们能找到新的主人，继续发光发热。
+    </text>
+  </view>
+
+  <view class="footer-info">
+    <text>开发者：某大二学生 & Gemini AI</text> <text>联系邮箱：2771977951@qq.com</text>
+  </view>
+</view>

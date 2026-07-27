@@ -1,0 +1,108 @@
+-- Complete the schema that was previously created manually in production.
+
+ALTER TABLE `User`
+  ADD COLUMN `isStudent` INTEGER NOT NULL DEFAULT 0,
+  ADD COLUMN `studentCardImg` VARCHAR(191) NULL,
+  ADD COLUMN `points` INTEGER NOT NULL DEFAULT 0,
+  ADD COLUMN `creditScore` INTEGER NOT NULL DEFAULT 300,
+  ADD COLUMN `realName` VARCHAR(191) NULL,
+  ADD COLUMN `gender` VARCHAR(191) NULL,
+  ADD COLUMN `college` VARCHAR(191) NULL,
+  ADD COLUMN `major` VARCHAR(191) NULL,
+  ADD COLUMN `className` VARCHAR(191) NULL,
+  ADD COLUMN `grade` VARCHAR(191) NULL,
+  ADD COLUMN `studentId` VARCHAR(191) NULL,
+  ADD COLUMN `role` VARCHAR(191) NOT NULL DEFAULT 'user',
+  ADD COLUMN `ratingSum` INTEGER NOT NULL DEFAULT 0,
+  ADD COLUMN `ratingCount` INTEGER NOT NULL DEFAULT 0;
+
+ALTER TABLE `Product`
+  MODIFY COLUMN `images` TEXT NOT NULL,
+  ADD COLUMN `status` INTEGER NOT NULL DEFAULT 0;
+
+ALTER TABLE `Message`
+  MODIFY COLUMN `content` TEXT NOT NULL,
+  ADD COLUMN `type` INTEGER NOT NULL DEFAULT 0,
+  ADD COLUMN `isRead` BOOLEAN NOT NULL DEFAULT false;
+
+CREATE TABLE `Distance` (
+  `fromIndex` INTEGER NOT NULL,
+  `toIndex` INTEGER NOT NULL,
+  `value` INTEGER NOT NULL,
+  PRIMARY KEY (`fromIndex`, `toIndex`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE `Favorite` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `userId` INTEGER NOT NULL,
+  `productId` INTEGER NOT NULL,
+  `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  UNIQUE INDEX `Favorite_userId_productId_key` (`userId`, `productId`),
+  PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE `BrowseHistory` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `userId` INTEGER NOT NULL,
+  `productId` INTEGER NOT NULL,
+  `viewedAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  UNIQUE INDEX `BrowseHistory_userId_productId_key` (`userId`, `productId`),
+  PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE `SearchLog` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `keyword` VARCHAR(191) NOT NULL,
+  `userId` INTEGER NULL,
+  `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE `Announcement` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(191) NOT NULL,
+  `content` TEXT NOT NULL,
+  `author` VARCHAR(191) NOT NULL DEFAULT '系统管理员',
+  `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  `updatedAt` DATETIME(3) NOT NULL,
+  PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE `PointLog` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `userId` INTEGER NOT NULL,
+  `type` INTEGER NOT NULL,
+  `amount` INTEGER NOT NULL,
+  `description` VARCHAR(191) NOT NULL,
+  `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE `UnlockedContact` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `userId` INTEGER NOT NULL,
+  `productId` INTEGER NOT NULL,
+  `sellerId` INTEGER NOT NULL,
+  `status` INTEGER NOT NULL DEFAULT 0,
+  `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  `rating` INTEGER NULL,
+  `content` TEXT NULL,
+  `commentAt` DATETIME(3) NULL,
+  UNIQUE INDEX `UnlockedContact_userId_productId_key` (`userId`, `productId`),
+  PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+ALTER TABLE `Favorite`
+  ADD CONSTRAINT `Favorite_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  ADD CONSTRAINT `Favorite_productId_fkey` FOREIGN KEY (`productId`) REFERENCES `Product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `BrowseHistory`
+  ADD CONSTRAINT `BrowseHistory_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  ADD CONSTRAINT `BrowseHistory_productId_fkey` FOREIGN KEY (`productId`) REFERENCES `Product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `PointLog`
+  ADD CONSTRAINT `PointLog_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+ALTER TABLE `UnlockedContact`
+  ADD CONSTRAINT `UnlockedContact_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  ADD CONSTRAINT `UnlockedContact_productId_fkey` FOREIGN KEY (`productId`) REFERENCES `Product` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

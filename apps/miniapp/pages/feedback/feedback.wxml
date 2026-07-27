@@ -1,0 +1,34 @@
+<!--pages/feedback/feedback.wxml-->
+<view class="page-container">
+  <form bindsubmit="submitFeedback">
+    <view class="form-group">
+      <view class="form-title">
+        <text class="required">*</text> 联系方式
+      </view>
+      <input class="form-input" name="contact" value="{{contact}}" placeholder="手机号或QQ号，方便我们与您联系" bindinput="onContactInput" />
+    </view>
+
+    <view class="form-group">
+      <view class="form-title">
+        <text class="required">*</text> 问题或建议
+      </view>
+      <textarea class="form-textarea" name="content" value="{{content}}" placeholder="请详细描述您遇到的问题或建议..." maxlength="500" bindinput="onContentInput" />
+      <view class="char-counter">{{content.length}}/500</view>
+    </view>
+
+    <view class="form-group">
+      <view class="form-title">相关截图 ({{images.length}}/3)</view>
+      <view class="image-uploader">
+        <block wx:for="{{images}}" wx:key="index">
+          <view class="image-preview-wrapper">
+            <image class="image-preview" src="{{item}}" mode="aspectFill" bindtap="previewImage" data-index="{{index}}"></image>
+            <view class="delete-icon" bindtap="deleteImage" data-index="{{index}}">×</view>
+          </view>
+        </block>
+        <view class="add-image-btn" bindtap="chooseImage" wx:if="{{images.length < 3}}">+</view>
+      </view>
+    </view>
+
+    <button class="submit-btn" form-type="submit" loading="{{isLoading}}">提 交</button>
+  </form>
+</view>

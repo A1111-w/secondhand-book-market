@@ -1,0 +1,73 @@
+<!--pages/auth/auth.wxml-->
+<view class="container">
+
+  <view class="status-header" wx:if="{{status !== 0}}">
+    <icon type="{{status === 2 ? 'success' : (status === 1 ? 'waiting' : 'warn')}}" size="50"/>
+    <view class="status-title">{{statusText}}，记得刷新我的页面更新信息</view>
+    <view class="status-desc" wx:if="{{status === 1}}">认证资料审核中...</view>
+    <view class="status-desc" wx:if="{{status === 3}}">请修正信息后重新提交</view>
+  </view>
+
+  <block wx:if="{{status === 0 || status === 3}}">
+    <view class="form-card">
+      <view class="form-title">基本信息</view>
+
+      <view class="input-item">
+        <text class="label">姓名</text>
+        <input class="input" placeholder="请输入真实姓名" data-field="realName" bindinput="onInput" />
+      </view>
+
+      <view class="input-item">
+        <text class="label">性别</text>
+        <radio-group class="radio-group" bindchange="onGenderChange">
+          <label><radio value="男" color="#007aff"/>男</label>
+          <label style="margin-left: 30rpx;"><radio value="女" color="#007aff"/>女</label>
+        </radio-group>
+      </view>
+
+      <view class="input-item">
+        <text class="label">学院</text>
+        <input class="input" placeholder="例如：计算机学院" data-field="college" bindinput="onInput" />
+      </view>
+
+      <view class="input-item">
+        <text class="label">专业</text>
+        <input class="input" placeholder="例如：计算机科学与技术" data-field="major" bindinput="onInput" />
+      </view>
+
+      <view class="input-item">
+        <text class="label">年级</text>
+        <input class="input" placeholder="例如：2023级" data-field="grade" bindinput="onInput" />
+      </view>
+
+      <view class="input-item">
+        <text class="label">班级</text>
+        <input class="input" placeholder="例如：24计算机1班" data-field="className" bindinput="onInput" />
+      </view>
+
+      <view class="input-item">
+        <text class="label">学号</text>
+        <input class="input" placeholder="请输入学号" type="number" data-field="studentId" bindinput="onInput" />
+      </view>
+    </view>
+
+    <view class="form-card">
+      <view class="form-title">证件照片</view>
+      <view class="upload-area" bindtap="chooseImage">
+        <image wx:if="{{tempImg}}" src="{{tempImg}}" class="preview-img" mode="aspectFit" />
+        <view wx:else class="placeholder">
+          <text class="plus">+</text>
+          <text class="tips-text">点击上传学生证/校园卡正面</text>
+        </view>
+      </view>
+      <view class="privacy-tip">
+        ⚠️ 隐私保护：可以遮挡头像，但是请务必将学校盖的章露出来。
+      </view>
+    </view>
+
+    <button class="submit-btn" bindtap="submitVerify" disabled="{{isSubmitting}}">
+      {{isSubmitting ? '提交中...' : '提交审核'}}
+    </button>
+  </block>
+
+</view>

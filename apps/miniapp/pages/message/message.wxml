@@ -1,0 +1,53 @@
+<!--pages/message/message.wxml-->
+<view class="page-container">
+
+  <!-- 加载状态 -->
+  <view class="tips-wrapper" wx:if="{{isLoading}}">
+    <text class="tips-text">正在加载...</text>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="tips-wrapper" wx:if="{{!isLoading && conversations.length === 0}}">
+
+    <image class="empty-image" src="/images/empty-box.jpg" mode="aspectFit" />
+    <text class="tips-text">暂无消息，快去聊聊天吧</text>
+  </view>
+
+  <!-- 消息列表 -->
+  <block wx:if="{{!isLoading && conversations.length > 0}}">
+    <view class="conversation-list">
+
+      <view
+        class="convo-item"
+        wx:for="{{conversations}}"
+        wx:key="otherUserId"
+        bindtap="goToChat"
+        data-user-id="{{item.otherUserId}}"
+        data-username="{{item.username}}"
+        data-avatar="{{item.avatar}}"
+      >
+        <!-- 头像和未读角标 -->
+        <view class="avatar-wrapper">
+          <image class="avatar" src="{{item.avatar}}" mode="aspectFill" />
+          <view class="unread-badge" wx:if="{{item.unreadCount > 0}}">
+            {{item.unreadCount > 99 ? '99+' : item.unreadCount}}
+          </view>
+        </view>
+
+        <!-- 消息内容 -->
+        <view class="convo-info">
+          <view class="info-header">
+            <text class="username">{{item.username}}</text>
+            <text class="time">{{item.lastMessageTime}}</text>
+          </view>
+          <view class="info-footer">
+            <text class="last-message">{{item.lastMessage}}</text>
+          </view>
+        </view>
+
+      </view>
+
+    </view>
+  </block>
+
+</view>

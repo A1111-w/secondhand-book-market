@@ -1,0 +1,68 @@
+{
+  "pages": [
+    "pages/homepage/homepage",
+    "pages/product_selector/index",
+    "pages/gr/gr",
+    "pages/favorites/favorites",
+    "pages/history/history",
+    "pages/newbie/newbie",
+    "pages/search/search",
+    "pages/order_list/order_list",
+    "pages/profile/profile",
+    "pages/product/product",
+    "pages/guide/guide",
+    "pages/goods/goods",
+    "pages/chat/chat",
+    "pages/my_products/my_products",
+    "pages/edit_product/edit_product",
+    "pages/add_product/add_product",
+    "pages/about/about",
+    "pages/feedback/feedback",
+    "pages/my/my",
+    "pages/message/message",
+    "pages/list/list",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/announcement/list/list",
+    "pages/announcement/detail/detail",
+    "pages/auth/auth",
+    "pages/paper-site/index",
+    "pages/points/detail/detail",
+    "pages/points/earn/earn",
+    "pages/evaluate/form/index"
+
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "知识再利用",
+    "navigationBarBackgroundColor": "#FFDAB9",
+    "enablePullDownRefresh": true ,
+    "backgroundColor": "#FFDAB9"
+  },
+  "tabBar": {
+    "custom": true,
+    "list": [
+      {
+        "pagePath": "pages/homepage/homepage",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/my_products/my_products",
+        "text": "发布"
+      },
+      {
+        "pagePath": "pages/message/message",
+        "text": "消息"
+      },
+      {
+        "pagePath": "pages/gr/gr",
+        "text": "我的"
+      }
+
+    ]
+  },
+  "style": "v2",
+  "componentFramework": "glass-easel",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

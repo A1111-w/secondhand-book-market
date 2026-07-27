@@ -1,0 +1,56 @@
+<!--pages/history/history.wxml-->
+<view class="page-container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="input-wrapper">
+      <icon type="search" size="16" color="#999"/>
+      <input
+        class="search-input"
+        placeholder="搜索商品名称 / 描述 / ISBN"
+        value="{{keyword}}"
+        bindinput="onInput"
+        bindconfirm="onSearch"
+      />
+      <icon wx:if="{{keyword}}" type="clear" size="16" color="#ccc" bindtap="onClear"/>
+    </view>
+    <view class="search-btn" bindtap="onSearch">搜索</view>
+  </view>
+
+  <!-- 历史列表 -->
+  <scroll-view scroll-y class="history-list">
+    <block wx:if="{{!isEmpty}}">
+      <view class="date-group" wx:for="{{groupedHistory}}" wx:key="date">
+
+        <!-- 日期头 -->
+        <view class="date-header">
+          <text class="date-text">{{item.date}}</text>
+        </view>
+
+        <!-- 商品网格  -->
+        <view class="goods-grid">
+          <view
+            class="grid-item"
+            wx:for="{{item.items}}"
+            wx:for-item="prod"
+            wx:key="id"
+            bindtap="goToDetail"
+            data-id="{{prod.id}}"
+          >
+            <image class="prod-img" src="{{prod.images}}" mode="aspectFill" lazy-load />
+            <view class="prod-info">
+              <text class="prod-price">¥{{prod.price}}</text>
+              <text class="prod-status" wx:if="{{prod.status === 1}}">已失效</text>
+            </view>
+          </view>
+        </view>
+
+      </view>
+    </block>
+
+    <!-- 空状态 -->
+    <view wx:else class="empty-state">
+      <image src="/images/empty-box.jpg" mode="widthFix" class="empty-img"/>
+      <text>暂无浏览记录</text>
+    </view>
+  </scroll-view>
+</view>

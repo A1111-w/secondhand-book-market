@@ -1,0 +1,29 @@
+
+
+<view class="picker-mask {{show ? 'show' : ''}}" bindtap="onClose"></view>
+
+<view class="picker-content {{show ? 'show' : ''}}">
+  <view class="picker-header">
+    <text>选择商品发送</text>
+    <view class="close-icon" bindtap="onClose">×</view>
+  </view>
+
+  <scroll-view scroll-y class="product-list">
+    <block wx:if="{{products.length > 0}}">
+      <view class="product-row" wx:for="{{products}}" wx:key="id">
+        <image class="prod-img" src="{{item.images}}" mode="aspectFill" />
+
+        <view class="prod-info">
+          <view class="prod-title-row">
+            <text class="tag" wx:if="{{item.isTarget}}">当前咨询</text>
+            <text class="prod-name">{{item.name}}</text>
+          </view>
+          <text class="prod-price">¥{{item.price}}</text>
+        </view>
+
+        <button class="send-btn" size="mini" bindtap="onSend" data-item="{{item}}">发送</button>
+      </view>
+    </block>
+    <view wx:else class="empty-tip">暂无商品</view>
+  </scroll-view>
+</view>

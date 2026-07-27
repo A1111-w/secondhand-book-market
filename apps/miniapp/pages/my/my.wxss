@@ -1,0 +1,109 @@
+/* pages/my/my.wxss */
+
+.profile-page {
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+
+/* 表单大卡片 */
+.form-card {
+  background-color: #ffffff;
+  border-radius: 20rpx;
+  padding: 0 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.03);
+  margin-top: 20rpx;
+}
+
+/* 每一行 */
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 36rpx 0;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+/* 最后一行的线去掉 */
+.last-row {
+  border-bottom: none;
+}
+
+/* 左侧标签 */
+.label {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 500;
+  width: 160rpx; /* 固定宽度，对齐 */
+}
+
+/* 右侧内容容器 */
+.right-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1;
+}
+
+/* 输入框 */
+.input {
+  flex: 1;
+  text-align: right;
+  font-size: 30rpx;
+  color: #333;
+  height: 100%;
+}
+
+.placeholder {
+  color: #ccc;
+}
+
+/* Picker 容器 */
+.picker-wrapper {
+  flex: 1;
+}
+
+.picker {
+  text-align: right;
+  font-size: 30rpx;
+  color: #333;
+}
+
+/* 头像 */
+.avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background-color: #eee;
+  margin-right: 10rpx;
+}
+
+/* 箭头 */
+.arrow {
+  font-size: 36rpx;
+  color: #ccc;
+  margin-left: 10rpx;
+  line-height: 1;
+  margin-top: -4rpx; /* 微调垂直居中 */
+}
+
+/* 保存按钮 */
+.save-btn {
+  margin-top: 60rpx;
+  width: 100% !important;
+  height: 90rpx;
+  line-height: 90rpx;
+  background: linear-gradient(90deg, #007aff, #00b4ff);
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 600;
+  border-radius: 45rpx;
+  box-shadow: 0 8rpx 20rpx rgba(0, 122, 255, 0.3);
+  padding: 0;
+}
+
+.save-btn:active {
+  opacity: 0.9;
+  transform: scale(0.99);
+}

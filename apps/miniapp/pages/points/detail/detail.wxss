@@ -1,0 +1,103 @@
+/* pages/points/detail/detail.wxss */
+
+/* 1. 页面容器：铺满全屏，防止高度塌陷 */
+.container {
+  height: 100vh;
+  background-color: #f7f8fa;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* 【核心修复】强制子元素拉伸占满宽度，修复宽度不一致问题 */
+}
+
+/* 2. 顶部全宽蓝色背景 */
+.header-section {
+  width: 100%;
+  /* 增加底部 padding (140rpx)，让头部看起来更长、更大气 */
+  padding: 60rpx 40rpx 140rpx;
+  background: linear-gradient(135deg, #007aff, #00c6ff);
+  box-sizing: border-box;
+  color: #fff;
+  flex-shrink: 0;
+  border-bottom-left-radius: 40rpx;
+  border-bottom-right-radius: 40rpx;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.label { font-size: 28rpx; opacity: 0.9; margin-bottom: 16rpx; }
+.num { font-size: 90rpx; font-weight: bold; line-height: 1; margin-bottom: 24rpx; } /* 字体加大 */
+.tips {
+  font-size: 24rpx; opacity: 0.8;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8rpx 24rpx; border-radius: 30rpx;
+  align-self: flex-start;
+}
+
+/* 3. 白色列表容器：向上插入 */
+.list-wrapper {
+  flex: 1; /* 撑满剩余高度 */
+
+  /* 【核心修复】显式指定宽度 = 100% - 左右边距(24+24) */
+  width: calc(100% - 48rpx);
+  margin: -80rpx auto 0; /* 上移80rpx，左右居中 */
+
+  background: #fff;
+  border-radius: 32rpx 32rpx 0 0;
+  padding: 30rpx 30rpx 0;
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box; /* 确保 padding 不会撑大宽度 */
+}
+
+.list-title {
+  font-size: 32rpx; font-weight: bold; color: #333;
+  margin-bottom: 30rpx; padding-left: 16rpx;
+  border-left: 8rpx solid #007aff;
+  flex-shrink: 0;
+}
+
+/* 滚动区域 */
+.log-scroll {
+  flex: 1;
+  height: 0;
+  width: 100%;
+}
+
+/* 列表项 */
+.log-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 32rpx 0; border-bottom: 1rpx solid #f5f5f5;
+}
+.log-info { display: flex; flex-direction: column; max-width: 70%; }
+.log-desc { font-size: 30rpx; color: #333; margin-bottom: 10rpx; font-weight: 500; }
+.log-time { font-size: 24rpx; color: #999; }
+
+.log-amount { font-size: 36rpx; font-weight: bold; }
+.income { color: #ff9000; }
+.expense { color: #333; }
+
+/* 空状态：垂直水平居中 */
+.empty-content {
+  height: 80%; /* 在白色区域内占据高度 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%; /* 确保宽度撑满 */
+}
+
+.empty-img {
+  width: 280rpx;
+  opacity: 0.8;
+  margin-bottom: 30rpx;
+}
+
+.empty-content text { font-size: 30rpx; color: #666; font-weight: bold; }
+.empty-content .sub-text { font-size: 24rpx; color: #999; margin-top: 10rpx; font-weight: normal; }

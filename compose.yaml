@@ -1,0 +1,59 @@
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: bookmarket
+      MYSQL_USER: bookmarket
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
+    command: ["mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+    volumes:
+      - bookmarket_mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p\"$$MYSQL_ROOT_PASSWORD\" --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: mysql://bookmarket:${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}@mysql:3306/bookmarket
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env}
+      HOST_BASE_URL: ${HOST_BASE_URL:-http://localhost:3000}
+      NEXT_PUBLIC_PAPER_SITE_URL: ${NEXT_PUBLIC_PAPER_SITE_URL:-http://localhost:5173}
+      PAPER_SITE_URL: ${PAPER_SITE_URL:-http://localhost:5173}
+      WX_APPID: ${WX_APPID:-}
+      WX_APPSECRET: ${WX_APPSECRET:-}
+      JISU_APPKEY: ${JISU_APPKEY:-}
+      MAILER_USER: ${MAILER_USER:-}
+      MAILER_PASS: ${MAILER_PASS:-}
+      MAILER_TO: ${MAILER_TO:-}
+      AD_REWARD_ENABLED: ${AD_REWARD_ENABLED:-false}
+      AD_REWARD_CALLBACK_SECRET: ${AD_REWARD_CALLBACK_SECRET:-}
+      PRIVATE_UPLOAD_ROOT: /app/.data
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    volumes:
+      - bookmarket_uploads:/app/public/uploads
+      - bookmarket_products:/app/public/productimage
+      - bookmarket_private:/app/.data
+    depends_on:
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 3s
+      retries: 15
+    restart: unless-stopped
+
+volumes:
+  bookmarket_mysql:
+  bookmarket_products:
+  bookmarket_uploads:
+  bookmarket_private:

@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `product` ADD COLUMN `way` VARCHAR(191) NOT NULL DEFAULT '自提';

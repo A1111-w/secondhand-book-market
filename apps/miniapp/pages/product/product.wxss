@@ -1,0 +1,383 @@
+/* pages/product/product.wxss */
+
+/* --- 页面容器 --- */
+.page-container {
+  background-color: #f4f4f4;
+  padding-bottom: 140rpx; /* 为底部操作栏留出空间 */
+  min-height: 100vh;
+}
+
+.loading-wrapper {
+  text-align: center;
+  padding: 100rpx;
+  color: #999;
+  font-size: 28rpx;
+}
+
+/* --- 1. 轮播图区域 --- */
+.swiper-wrapper {
+  position: relative;
+  width: 100%;
+  height: 750rpx; /* 1:1 显示 */
+}
+
+.image-swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-image {
+  width: 100%;
+  height: 100%;
+  background-color: #eee;
+}
+
+/* 已售出遮罩 (斜盖章风格) */
+.detail-sold-mask {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* 居中 */
+  width: 220rpx;
+  height: 220rpx;
+  border: 8rpx solid #ccc;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  opacity: 0.8;
+  pointer-events: none; /* 让点击穿透，不影响看图 */
+}
+
+.detail-sold-mask text {
+  font-size: 44rpx;
+  font-weight: bold;
+  color: #ccc;
+  transform: rotate(-20deg);
+  letter-spacing: 4rpx;
+}
+
+/* --- 通用卡片样式 --- */
+.section {
+  background-color: #fff;
+  margin: 20rpx;
+  padding: 30rpx;
+  border-radius: 16rpx;
+  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.02);
+}
+
+/* --- 2. 价格与标题 --- */
+.price-section .price-box {
+  color: #e44d26;
+  margin-bottom: 16rpx;
+  display: flex;
+  align-items: baseline;
+}
+
+.price-symbol {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-right: 4rpx;
+}
+
+.price-value {
+  font-size: 52rpx;
+  font-weight: bold;
+}
+
+.product-name {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  line-height: 1.4;
+  display: block;
+  margin-bottom: 16rpx;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag-item {
+  display: inline-block;
+  background-color: #f4f4f4;
+  color: #666;
+  font-size: 24rpx;
+  padding: 8rpx 16rpx;
+  border-radius: 8rpx;
+  margin-right: 12rpx;
+}
+
+/* --- 3. 卖家信息 (含信用分) --- */
+.seller-section {
+  display: flex;
+  align-items: center;
+}
+
+.seller-avatar {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 50%;
+  margin-right: 24rpx;
+  border: 1rpx solid #f0f0f0;
+}
+
+.seller-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+/* 名字和信用标签在一行 */
+.seller-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.seller-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-right: 16rpx;
+}
+
+/* 信用分标签样式 */
+.credit-tag {
+  font-size: 20rpx;
+  padding: 4rpx 10rpx;
+  border-radius: 6rpx;
+  background-color: #e6f7ff;
+  color: #007aff;
+  border: 1rpx solid #91d5ff;
+  font-weight: 500;
+}
+
+.credit-tag.low {
+  background-color: #fff1f0;
+  color: #ff4d4f;
+  border-color: #ffa39e;
+}
+
+/* 评分和位置信息 */
+.seller-meta {
+  font-size: 24rpx;
+  color: #999;
+  display: flex;
+  align-items: center;
+}
+
+.divider {
+  margin: 0 12rpx;
+  color: #ddd;
+}
+
+/* --- 4. 商品描述 --- */
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 24rpx;
+  padding-left: 16rpx;
+  border-left: 8rpx solid #007aff;
+  line-height: 1;
+}
+
+.description-text {
+  font-size: 28rpx;
+  color: #444;
+  line-height: 1.8;
+  display: block;
+  white-space: pre-wrap; /* 保持换行符 */
+  text-align: justify;
+}
+
+/* --- 5. 详细信息 & 送货范围 --- */
+.specs-section {
+  padding-bottom: 10rpx;
+}
+
+.spec-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 28rpx;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.spec-item:last-child {
+  border-bottom: none;
+}
+
+.spec-label {
+  color: #999;
+  flex-shrink: 0;
+  width: 160rpx; /* 固定宽度对齐 */
+}
+
+.spec-value {
+  color: #333;
+  text-align: right;
+  flex: 1;
+}
+
+.contact-value {
+  color: #007aff;
+  font-weight: bold;
+  font-size: 30rpx;
+}
+
+.distance-tip {
+  color: #aaa;
+  font-style: italic;
+}
+
+/* 送货范围的特殊布局 */
+.spec-item-container {
+  display: flex;
+  align-items: flex-start; /* 顶部对齐 */
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.is-full-range {
+  color: #07c160; /* 绿色表示全校 */
+  font-weight: bold;
+}
+
+/* 标签容器 */
+.range-display {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end; /* 靠右对齐 */
+  align-items: center;
+  gap: 12rpx;
+  transition: all 0.3s;
+}
+
+.range-display.collapsed {
+  max-height: 56rpx; /* 限制高度 */
+  overflow: hidden;
+}
+
+.range-display.expanded {
+  max-height: none;
+}
+
+.range-tag {
+  display: inline-block;
+  background-color: #f0f2f5;
+  color: #555;
+  font-size: 24rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 8rpx;
+}
+
+.range-separator {
+  color: #999;
+  padding: 0 4rpx;
+}
+
+.range-toggle-btn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  font-size: 26rpx;
+  color: #007aff;
+  margin-left: 16rpx;
+  padding-top: 6rpx; /* 微调对齐 */
+}
+
+.range-toggle-btn .arrow {
+  margin-left: 4rpx;
+  font-size: 20rpx;
+  transition: transform 0.2s;
+}
+
+.range-toggle-btn .arrow.up {
+  transform: rotate(180deg);
+}
+
+/* --- 6. 底部操作栏 --- */
+.action-bar-placeholder {
+  height: 140rpx; /* 占位 */
+}
+
+.action-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 120rpx;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+  border-top: 1rpx solid #f0f0f0;
+  z-index: 100;
+  padding-bottom: env(safe-area-inset-bottom);
+  box-shadow: 0 -4rpx 16rpx rgba(0, 0, 0, 0.03);
+}
+
+.fav-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100rpx;
+  flex-shrink: 0;
+  margin-right: 20rpx;
+  color: #666;
+}
+
+.fav-icon {
+  width: 48rpx;
+  height: 48rpx;
+  margin-bottom: 6rpx;
+}
+
+.fav-text {
+  font-size: 20rpx;
+  line-height: 1;
+}
+
+.contact-btn {
+  flex: 1;
+  margin: 0 !important;
+  padding: 0;
+  height: 80rpx;
+  line-height: 80rpx;
+  background: linear-gradient(90deg, #007aff, #00b4ff);
+  color: #ffffff;
+  font-size: 30rpx;
+  font-weight: 600;
+  border-radius: 40rpx;
+  box-shadow: 0 6rpx 16rpx rgba(0, 122, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-btn:active {
+  opacity: 0.9;
+  transform: scale(0.98);
+}
+
+/* 禁用状态 */
+.btn-disabled {
+  background: #e0e0e0 !important;
+  box-shadow: none !important;
+  color: #999 !important;
+}
+
+/* 解锁按钮特殊样式 (这里保持蓝色，也可以改成橙色突出) */
+.unlock-style {
+  background: linear-gradient(90deg, #ff9000, #ff5000);
+  box-shadow: 0 6rpx 16rpx rgba(255, 80, 0, 0.25);
+}

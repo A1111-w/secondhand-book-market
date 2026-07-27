@@ -1,0 +1,177 @@
+/* pages/search/search.wxss */
+.search-container {
+  background-color: #fff;
+  min-height: 100vh;
+  padding: 20rpx 30rpx;
+  box-sizing: border-box;
+}
+
+/* --- 搜索栏 --- */
+.search-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40rpx;
+}
+.search-input-box {
+  flex: 1;
+  height: 72rpx;
+  background-color: #f5f5f5;
+  border-radius: 36rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 24rpx;
+  margin-right: 20rpx;
+}
+.search-input {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333;
+  margin: 0 16rpx;
+}
+.clear-btn { padding: 10rpx; display: flex; }
+.search-action {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: bold;
+}
+
+/* --- 通用板块 --- */
+.section { margin-bottom: 50rpx; }
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+.section-title { font-size: 30rpx; font-weight: bold; color: #333; }
+.delete-icon, .refresh-icon { width: 32rpx; height: 32rpx; padding: 10rpx; opacity: 0.6; }
+
+/* --- 历史记录 (胶囊样式) --- */
+.tags-wrapper { display: flex; flex-wrap: wrap; }
+.tag {
+  background-color: #f5f5f5;
+  color: #666;
+  font-size: 26rpx;
+  padding: 10rpx 24rpx;
+  border-radius: 30rpx;
+  margin-right: 20rpx;
+  margin-bottom: 20rpx;
+  max-width: 100%;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* --- 全校热搜 (双列列表样式，仿截图) --- */
+.hot-words-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.hot-word-item {
+  width: 48%; /* 两列 */
+  display: flex;
+  align-items: center;
+  margin-bottom: 24rpx;
+  padding: 10rpx 0;
+}
+.rank-num {
+  font-weight: bold;
+  margin-right: 12rpx;
+  font-size: 28rpx;
+  color: #999;
+  width: 30rpx;
+  text-align: center;
+  font-style: italic;
+}
+.rank-num.top1 { color: #ff4d4f; } /* 第一名红 */
+.rank-num.top2 { color: #ff7a45; } /* 第二名橙 */
+.rank-num.top3 { color: #ffc53d; } /* 第三名黄 */
+.word-text {
+  font-size: 28rpx;
+  color: #333;
+  flex: 1;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.hot-tag-icon {
+  font-size: 20rpx;
+  color: #fff;
+  background-color: #ff5000;
+  border-radius: 4rpx;
+  padding: 2rpx 6rpx;
+  margin-left: 10rpx;
+}
+
+/* --- 月度榜单 (横向滚动) --- */
+.hot-ranking-section {
+  margin-top: 40rpx;
+  background: linear-gradient(to bottom, #fffbf0, #fff); /* 淡黄色背景渐变 */
+  border-radius: 20rpx;
+  padding: 24rpx;
+}
+.ranking-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+.ranking-icon { width: 36rpx; height: 36rpx; margin-right: 10rpx; }
+.ranking-title { font-size: 32rpx; font-weight: bold; color: #8a5a00; }
+
+.ranking-scroll {
+  display: flex;
+  flex-wrap: wrap;
+  white-space: normal;
+  height: auto;
+  padding: 0 10rpx;
+}
+.ranking-card {
+  display: inline-block;
+
+  width: 23%;
+  margin-right: 2%;
+  margin-bottom: 20rpx;
+
+  position: relative;
+  background: #fff;
+  border-radius: 12rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 10rpx rgba(0,0,0,0.05);
+}
+.ranking-card:nth-child(4n) {
+  margin-right: 0;
+}
+.ranking-img {
+  width: 100%;
+  height: 160rpx;
+  background-color: #eee;
+}
+.ranking-info { padding: 12rpx; }
+.ranking-name {
+  font-size: 26rpx;
+  color: #333;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  display: block;
+  margin-bottom: 6rpx;
+}
+.ranking-heat {
+  font-size: 22rpx;
+  color: #999;
+  background-color: #f7f7f7;
+  padding: 4rpx 8rpx;
+  border-radius: 6rpx;
+}
+
+/* 榜单角标 */
+.badge-wrapper {
+  position: absolute;
+  top: 0; left: 0;
+  z-index: 2;
+}
+.badge-text {
+  font-size: 20rpx;
+  color: #fff;
+  padding: 4rpx 10rpx;
+  border-bottom-right-radius: 12rpx;
+  font-weight: bold;
+}
+.rank-1 { background: linear-gradient(90deg, #ff4d4f, #ff7875); }
+.rank-2 { background: linear-gradient(90deg, #ff7a45, #ff9c6e); }
+.rank-3 { background: linear-gradient(90deg, #ffc53d, #ffd666); }

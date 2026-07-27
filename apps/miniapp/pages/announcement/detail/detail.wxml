@@ -1,0 +1,22 @@
+<!--pages/announcement/detail/detail.wxml-->
+<view class="page-container">
+  <block wx:if="{{info}}">
+    <view class="header">
+      <view class="title">{{info.title}}</view>
+      <view class="meta">
+        <text class="author">{{info.author}}</text>
+        <text class="time">{{info.timeStr}}</text>
+      </view>
+    </view>
+
+    <view class="content">
+      <text class="text-body" user-select="true">{{info.content}}</text>
+    </view>
+
+    <view class="image-area" wx:if="{{info.image}}">
+      <image src="{{info.image}}" mode="widthFix" class="detail-img" show-menu-by-longpress></image>
+    </view>
+  </block>
+
+  <view wx:elif="{{isLoading}}" class="loading">加载中...</view>
+</view>

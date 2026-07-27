@@ -1,0 +1,168 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// 用户表
+model User {
+  id               Int               @id @default(autoincrement())
+  username         String? // 可选昵称
+  avatar           String? // 用户头像，可选
+  phone            String?           @unique // 手机号，可选
+  password         String? // 密码，可选
+  wechatOpenId     String?           @unique // 微信登录专属ID，可选
+  address          String? // 地址，可选
+  contact          String? // 其他联系方式（微信号/QQ/邮箱）
+  createdAt        DateTime          @default(now())
+  favorites        Favorite[] // 用户收藏的记录
+  history          BrowseHistory[] //游览记录
+  products         Product[] // 用户发布的商品
+  messagesSent     Message[]         @relation("MessagesSent") // 用户发送的消息
+  messagesReceived Message[]         @relation("MessagesReceived") // 用户接收的消息
+  isStudent        Int               @default(0) // 0:未认证, 1:审核中, 2:已认证, 3:驳回
+  studentCardImg   String? // 学生证照片路径
+  points           Int               @default(0) // 积分余额
+  creditScore      Int               @default(300) // 信用分，初始300
+  pointLogs        PointLog[] // 积分流水
+  unlockedContacts UnlockedContact[] // 已解锁的联系人记录
+
+  // 详细资料 (审核用)
+  realName  String? // 真实姓名
+  gender    String? // 性别
+  college   String? // 学院
+  major     String? // 专业
+  className String? // 班级
+  grade     String? // 年级 (如 2023级)
+  studentId String? // 学号
+
+  role String @default("user") // "user" = 普通用户, "admin" = 管理员
+
+  ratingSum   Int @default(0) // 收到的总星数 (例如 5+4+5 = 14)
+  ratingCount Int @default(0) // 收到的评价次数 (例如 3)
+}
+
+// 商品表（书籍 + 二手物品）
+model Product {
+  id               Int               @id @default(autoincrement())
+  name             String // 商品名称，必填
+  description      String?           @default("哎呀介绍忘记写了") // 商品介绍，可选
+  images           String            @db.Text //商品图片
+  category         String // 商品类型（家具，电子产品，电器，食物，二手书，其他）
+  contact          String // 联系方式，必填
+  isbn             String? // 二手书字段，可选
+  price            Float // 商品金额，必填
+  position         String? // 实际位置
+  positionIndex    Int? // 索引位置
+  way              String            @default("自提") //自提或者送上门
+  range            Json? //送上门的范围
+  status           Int               @default(0) // 出售状态
+  createdAt        DateTime          @default(now()) // 发布时间
+  user             User              @relation(fields: [userId], references: [id])
+  userId           Int
+  favoritedBy      Favorite[] // 收藏了该商品的用户记录
+  history          BrowseHistory[]
+  unlockedContacts UnlockedContact[]
+}
+
+model Distance {
+  fromIndex Int // 起点索引 (对应 product.positionIndex)
+  toIndex   Int // 终点索引 (对应 user.addressIndex)
+  value     Int // 距离值 (米)
+
+  @@id([fromIndex, toIndex])
+}
+
+// 消息表（用户之间聊天）
+model Message {
+  id         Int      @id @default(autoincrement())
+  fromUserId Int
+  toUserId   Int
+  content    String   @db.Text
+  type       Int      @default(0)
+  createdAt  DateTime @default(now())
+  isRead     Boolean  @default(false)
+  fromUser   User     @relation("MessagesSent", fields: [fromUserId], references: [id])
+  toUser     User     @relation("MessagesReceived", fields: [toUserId], references: [id])
+}
+
+model Favorite {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  productId Int
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id])
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade) // 商品删了，收藏记录也删
+
+  // 复合唯一索引：确保同一个用户不能重复收藏同一个商品
+  @@unique([userId, productId])
+}
+
+model BrowseHistory {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  productId Int
+  viewedAt  DateTime @default(now()) // 浏览时间
+
+  user    User    @relation(fields: [userId], references: [id])
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  // 复合唯一索引：同一个用户对同一个商品只保留一条记录（每次浏览更新时间即可）
+  @@unique([userId, productId])
+}
+
+// 新增：搜索记录表 (用于统计热搜词)
+model SearchLog {
+  id        Int      @id @default(autoincrement())
+  keyword   String // 搜索的关键词
+  userId    Int? // 谁搜的（可选，游客也可以搜）
+  createdAt DateTime @default(now()) // 搜索时间
+}
+
+model Announcement {
+  id        Int      @id @default(autoincrement())
+  title     String // 公告标题
+  content   String   @db.Text // 公告内容（支持长文本）
+  author    String   @default("系统管理员") // 发布人
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PointLog {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  type        Int //  1:看广告, 2:解锁联系方式(支出),  3:评价奖励
+  amount      Int // 变动金额
+  description String // 描述 (例如 "解锁商品ID:10的联系方式")
+  createdAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+//已解锁联系方式记录 (用于"全部订单"改为"已解锁") ---
+model UnlockedContact {
+  id        Int       @id @default(autoincrement())
+  userId    Int // 谁解锁的
+  productId Int // 解锁了哪个商品
+  sellerId  Int // 卖家的ID
+  status    Int       @default(0) // 0:待交易/待评价, 1:已完成评价
+  createdAt DateTime  @default(now())
+  rating    Int? // 评分 (1-5星)
+  content   String?   @db.Text // 评价内容 (设为Text以支持长文)
+  commentAt DateTime? // 评价时间
+
+  user    User    @relation(fields: [userId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+
+  @@unique([userId, productId]) // 防止重复解锁扣分
+}

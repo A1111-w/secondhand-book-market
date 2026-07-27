@@ -1,0 +1,149 @@
+<!--pages/product/product.wxml-->
+<view class="page-container">
+  <view class="loading-wrapper" wx:if="{{isLoading}}">
+    <text>加载中...</text>
+  </view>
+
+  <block wx:else>
+    <view class="swiper-wrapper" style="position: relative;">
+      <swiper class="image-swiper" indicator-dots autoplay circular>
+        <block wx:for="{{product.imagesList}}" wx:key="*this">
+          <swiper-item>
+            <image class="swiper-image" src="{{item}}" mode="aspectFill" bindtap="previewImage" data-url="{{item}}"/>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+
+    <view class="detail-sold-mask" wx:if="{{product.status === 1}}">
+      <text>已售出</text>
+    </view>
+
+    <view class="section price-section">
+      <view class="price-box">
+        <text class="price-symbol">¥</text>
+        <text class="price-value">{{product.price}}</text>
+      </view>
+      <text class="product-name">{{product.name}}</text>
+      <view class="tags">
+        <text class="tag-item">{{product.category}}</text>
+        <text class="tag-item">{{product.way}}</text>
+      </view>
+    </view>
+
+    <view class="section seller-section">
+      <image class="seller-avatar" src="{{product.user.avatar}}" />
+      <view class="seller-info">
+        <view class="seller-row">
+          <text class="seller-name">{{product.user.username || '匿名用户'}}</text>
+          <view class="credit-tag {{product.user.creditScore < 300 ? 'low' : ''}}">
+            信用分 {{product.user.creditScore}}
+          </view>
+        </view>
+        <view class="seller-meta">
+          <text>评分 {{product.user.avgRating}} ⭐</text>
+          <text class="divider">|</text>
+          <text>发布于 {{product.position}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="section description-section">
+      <view class="section-title">商品描述</view>
+      <text class="description-text">{{product.description}}</text>
+    </view>
+
+    <view class="section specs-section">
+      <view class="section-title">详细信息</view>
+
+      <view class="spec-item">
+        <text class="spec-label">联系方式</text>
+        <text class="spec-value contact-value">{{product.contact}}</text>
+      </view>
+
+      <view class="spec-item" wx:if="{{product.isbn}}">
+        <text class="spec-label">ISBN</text>
+        <text class="spec-value">{{product.isbn}}</text>
+      </view>
+
+      <view class="spec-item">
+        <text class="spec-label">交易方式</text>
+        <text class="spec-value">{{product.way}}</text>
+      </view>
+
+      <view class="spec-item-container" wx:if="{{product.way !== '自提' && product.range && product.range.length > 0}}">
+        <text class="spec-label">送货范围</text>
+
+        <block wx:if="{{product.range.length === fullRangeCount}}">
+          <text class="spec-value is-full-range">全校可送</text>
+        </block>
+
+        <block wx:elif="{{product.range.length > 0}}">
+          <block wx:if="{{!isRangeExpanded}}">
+            <view class="range-display collapsed">
+              <view wx:for="{{product.rangePreview}}" wx:for-item="loc" wx:key="*this" class="range-tag">
+                {{loc}}
+              </view>
+              <view class="range-separator" wx:if="{{product.range.length > product.rangePreview.length}}">...</view>
+            </view>
+          </block>
+
+          <block wx:if="{{isRangeExpanded}}">
+            <view class="range-display expanded">
+              <view wx:for="{{product.range}}" wx:for-item="loc" wx:key="*this" class="range-tag">
+                {{loc}}
+              </view>
+            </view>
+          </block>
+
+          <view wx:if="{{product.range.length > product.rangePreview.length}}" class="range-toggle-btn" bindtap="toggleRange">
+            <text>{{isRangeExpanded ? '收起' : '展开'}}</text>
+            <text class="arrow {{isRangeExpanded ? 'up' : 'down'}}">▾</text>
+          </view>
+        </block>
+      </view>
+
+      <view class="spec-item">
+        <text class="spec-label">交易地点</text>
+        <text class="spec-value">{{product.position}}</text>
+      </view>
+
+      <view class="spec-item">
+        <text class="spec-label">大致距离</text>
+        <text class="spec-value" wx:if="{{product.distance > 0}}">
+          约 {{product.distanceFormatted}}
+        </text>
+        <text class="spec-value distance-tip" wx:elif="{{!isUserLoggedIn || !hasUserAddress}}">
+          请登录并设置地址
+        </text>
+        <text class="spec-value distance-tip" wx:else>
+          暂无法计算距离
+        </text>
+      </view>
+
+      <view class="spec-item">
+        <text class="spec-label">发布时间</text>
+        <text class="spec-value">{{product.createdAtFormatted}}</text>
+      </view>
+    </view>
+  </block>
+
+  <view class="action-bar-placeholder"></view>
+
+  <view class="action-bar">
+    <view class="fav-action" bindtap="onToggleFavorite">
+      <image class="fav-icon" src="{{isFavorited ? '/images/icon-heart-fill.png' : '/images/icon-heart.png'}}" />
+      <text class="fav-text">{{isFavorited ? '已收藏' : '收藏'}}</text>
+    </view>
+
+    <button class="contact-btn btn-disabled" wx:if="{{isMyProduct}}">这是我的商品</button>
+
+    <button class="contact-btn btn-disabled" wx:elif="{{product.status === 1}}">已售出</button>
+
+    <button class="contact-btn" wx:elif="{{product.isUnlocked}}" bindtap="contactSeller">联系卖家</button>
+
+    <button class="contact-btn unlock-style" wx:else bindtap="handleUnlock">
+      免费解锁 (限时0积分)
+    </button>
+  </view>
+</view>

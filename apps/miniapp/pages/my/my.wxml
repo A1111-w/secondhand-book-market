@@ -1,0 +1,47 @@
+<view class="profile-page">
+
+  <view class="form-card">
+    <view class="row avatar-row" bindtap="chooseAvatar">
+      <text class="label">头像</text>
+      <view class="right-content">
+        <image class="avatar" src="{{avatarPreview || avatarUrl || '/images/default-avatar.png'}}" mode="aspectFill" />
+        <text class="arrow">›</text>
+      </view>
+    </view>
+
+    <view class="row">
+      <text class="label">用户名</text>
+      <input
+        class="input"
+        placeholder="请输入用户名"
+        placeholder-class="placeholder"
+        value="{{editNameValue}}"
+        bindinput="onNameInput"
+      />
+    </view>
+
+    <view class="row">
+      <text class="label">联系方式</text>
+      <input
+        class="input"
+        placeholder="手机号或微信号"
+        placeholder-class="placeholder"
+        value="{{contact}}"
+        bindinput="onInput"
+      />
+    </view>
+
+    <view class="row last-row">
+      <text class="label">地址</text>
+      <picker mode="selector" range="{{addressList}}" value="{{addressIndex}}" bindchange="onAddressChange" class="picker-wrapper">
+        <view class="right-content">
+          <view class="picker">{{displayAddress}}</view>
+          <text class="arrow">›</text>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <button class="save-btn" bindtap="saveAll">保存全部</button>
+
+</view>

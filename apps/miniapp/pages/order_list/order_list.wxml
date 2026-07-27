@@ -1,0 +1,53 @@
+<view class="page-container">
+  <view class="tabs">
+    <view class="tab-item {{activeTab === 0 ? 'active' : ''}}" bindtap="switchTab" data-idx="{{0}}">已解锁宝贝</view>
+    <view class="tab-item {{activeTab === 1 ? 'active' : ''}}" bindtap="switchTab" data-idx="{{1}}">待评价</view>
+  </view>
+
+  <scroll-view scroll-y class="list-scroll">
+    <block wx:if="{{displayList.length > 0}}">
+      <view class="unlock-card" wx:for="{{displayList}}" wx:key="id">
+        <view class="card-header">
+          <text class="order-time">解锁时间：{{item.createdAt || '刚刚'}}</text>
+          <text class="status-text {{item.status === 0 ? 'pending' : 'done'}}">{{item.status === 0 ? '待评价' : '已完成'}}</text>
+        </view>
+
+        <view class="card-body" bindtap="goToDetail" data-id="{{item.product.id}}">
+          <image class="prod-img" src="{{item.product.images}}" mode="aspectFill" />
+          <view class="prod-info">
+            <text class="prod-name">{{item.product.name}}</text>
+            <view class="prod-meta">
+              <text class="seller-name">卖家：{{item.sellerName || '同学'}}</text>
+            </view>
+            <view class="price-row">
+              <text class="currency">¥</text>
+              <text class="amount">{{item.product.price}}</text>
+            </view>
+          </view>
+        </view>
+
+        <view class="card-footer">
+          <view class="contact-area" bindtap="copyContact" data-contact="{{item.product.contact}}">
+            <text class="label">联系方式：</text>
+            <text class="value">{{item.product.contact}}</text>
+            <image src="/images/icon-book.png" class="copy-icon"/>
+          </view>
+
+          <view class="action-row" wx:if="{{item.status === 0}}">
+            <button class="eval-btn" bindtap="goToEvaluate"
+              data-id="{{item.product.id}}"
+              data-name="{{item.product.name}}"
+              data-img="{{item.product.images}}">
+              写评价 (+15积分)
+            </button>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <view wx:else class="empty-content">
+      <image src="/images/empty-box.jpg" mode="widthFix" class="empty-img" />
+      <text>暂无相关记录</text>
+    </view>
+  </scroll-view>
+</view>

@@ -1,0 +1,45 @@
+/* pages/announcement/list/list.wxss */
+page {
+  background-color: #f7f7f7;
+}
+.container {
+  padding: 20rpx;
+}
+.item {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0,0,0,0.03);
+}
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+.title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  flex: 1;
+  margin-right: 20rpx;
+}
+.date {
+  font-size: 24rpx;
+  color: #999;
+}
+.item-desc {
+  font-size: 28rpx;
+  color: #666;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* 最多显示2行 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.loading, .empty {
+  text-align: center;
+  padding-top: 100rpx;
+  color: #999;
+  font-size: 28rpx;
+}

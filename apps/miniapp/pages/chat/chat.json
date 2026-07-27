@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "product-picker": "/components/product-picker/index"
+  }
+
+}

@@ -1,0 +1,19 @@
+/* pages/my_products/my_products.wxss */
+.page-container { padding: 20rpx; background-color: #f4f4f4; min-height: 100vh;box-sizing: border-box; }
+.product-item { display: flex; flex-direction: column; background: #fff; border-radius: 16rpx; padding: 0; margin-bottom: 20rpx; box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05);overflow: hidden;}
+.product-image { width: 180rpx; height: 180rpx; border-radius: 12rpx; flex-shrink: 0; }
+.product-info { flex: 1; display: flex; flex-direction: column; overflow: hidden; margin-right: 24rpx;}
+.product-name { font-size: 30rpx; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: bold; }
+.product-price { font-size: 32rpx; color: #e44d26; font-weight: bold; margin: 12rpx 0; }
+.product-time { font-size: 24rpx; color: #999; }
+.actions { display: flex; }
+.action-btn { margin-left: 20rpx; font-size: 26rpx;border-radius: 30rpx; padding: 0 24rpx;line-height: 56rpx; }
+.edit-btn { background-color: #007aff; color: #fff; border: 1rpx solid #007aff;}
+.delete-btn { background-color: #fff;color: #ff3b30;border: 1rpx solid #ff3b30; }
+.empty-tip { text-align: center; color: #999; padding-top: 200rpx; display: flex;flex-direction: column;align-items: center;}
+.product-main-content { display: flex;padding: 24rpx; align-items: flex-start;}
+.product-actions {display: flex;justify-content: flex-end; padding: 20rpx 24rpx; border-top: 1rpx solid #f0f0f0; }
+.empty-image {width: 300rpx; margin-bottom: 20rpx; opacity: 0.7;}
+.post-btn { margin-top: 30rpx; background-color: #007aff; color: #fff; border-radius: 40rpx;  width: 300rpx;  font-size: 30rpx;}
+.status-btn { background-color: #fff; border: 1rpx solid; /* 颜色由 wxml 里的 inline-style 决定 */ margin-left: 20rpx; }
+page {background-color: #f4f4f4;}/* 不要删了不然会影响其他页面 */

@@ -1,0 +1,12 @@
+<web-view
+  wx:if="{{isConfigured}}"
+  src="{{url}}"
+  binderror="handleWebViewError"
+/>
+
+<view wx:else class="setup-state">
+  <view class="setup-state__mark">文</view>
+  <text class="setup-state__title">论文写作平台</text>
+  <text class="setup-state__copy">{{configurationMessage}}</text>
+  <button class="setup-state__button" bindtap="goBack">返回二手书平台</button>
+</view>

@@ -1,0 +1,182 @@
+/* pages/points/earn/earn.wxss */
+
+
+/* 1. 页面容器 */
+.container {
+  min-height: 100vh;
+  background-color: #f7f8fa;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* 强制拉伸宽度 */
+}
+
+/* 2. 顶部 Header */
+.header-section {
+  width: 100%;
+  padding: 60rpx 40rpx 140rpx; /* 底部留白给重叠区域 */
+  background: linear-gradient(135deg, #007aff, #00c6ff);
+  box-sizing: border-box;
+  color: #fff;
+  border-bottom-left-radius: 40rpx;
+  border-bottom-right-radius: 40rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.header-text { display: flex; flex-direction: column; }
+.title { font-size: 48rpx; font-weight: bold; margin-bottom: 10rpx; }
+.sub-title { font-size: 24rpx; opacity: 0.8; }
+
+.points-badge {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 20rpx 30rpx;
+  border-radius: 20rpx;
+  text-align: right;
+  backdrop-filter: blur(10px);
+}
+.label { font-size: 22rpx; opacity: 0.9; display: block; margin-bottom: 4rpx; }
+.num { font-size: 40rpx; font-weight: bold; }
+
+/* 3. 白色主体卡片 (向上插入) */
+.main-wrapper {
+  flex: 1;
+  width: calc(100% - 48rpx); /* 左右留边 */
+  margin: -80rpx auto 0;     /* 向上移动 */
+  background: #fff;
+  border-radius: 32rpx 32rpx 0 0;
+  padding: 40rpx 30rpx;
+  box-shadow: 0 8rpx 20rpx rgba(0,0,0,0.03);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 24rpx;
+  border-left: 8rpx solid #007aff;
+  padding-left: 12rpx;
+  line-height: 1;
+}
+
+/* --- 充值网格 --- */
+.recharge-grid {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40rpx;
+}
+
+.recharge-card {
+  width: 31%; /* 三等分 */
+  height: 200rpx;
+  background-color: #f5f9ff; /* 极淡的蓝色背景 */
+  border: 2rpx solid #e6f0ff;
+  border-radius: 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  transition: all 0.2s;
+}
+
+/* 点击效果 */
+.recharge-card:active {
+  transform: scale(0.96);
+  border-color: #007aff;
+  background-color: #e6f0ff;
+}
+
+.card-top { display: flex; align-items: baseline; margin-bottom: 12rpx; }
+.p-num { font-size: 40rpx; font-weight: bold; color: #333; }
+.p-unit { font-size: 22rpx; color: #666; margin-left: 4rpx; }
+.p-price { font-size: 28rpx; color: #007aff; font-weight: 600; }
+
+/* 优惠标签 */
+.tag {
+  position: absolute;
+  top: -2rpx; right: -2rpx;
+  background: linear-gradient(90deg, #ff8c00, #ff4d4f);
+  color: #fff;
+  font-size: 20rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 0 20rpx 0 20rpx; /* 异形圆角 */
+  box-shadow: 2rpx 2rpx 6rpx rgba(255, 77, 79, 0.3);
+}
+
+/* iOS 提示 */
+.ios-box {
+  background-color: #fffbe6;
+  color: #faad14;
+  font-size: 26rpx;
+  padding: 30rpx;
+  text-align: center;
+  border-radius: 16rpx;
+  border: 1rpx dashed #ffe58f;
+  margin-bottom: 40rpx;
+  line-height: 1.6;
+}
+
+.divider {
+  height: 1rpx;
+  background-color: #f0f0f0;
+  margin: 10rpx 0 40rpx;
+}
+
+/* --- 任务列表 --- */
+.task-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+  background-color: #fff;
+  border: 1rpx solid #f0f0f0;
+  border-radius: 20rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 10rpx rgba(0,0,0,0.01);
+}
+
+.icon-wrap {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+}
+.video-bg { background-color: #e6f7ff; }
+.comment-bg { background-color: #fff7e6; }
+.t-icon { width: 44rpx; height: 44rpx; }
+
+.t-content { flex: 1; display: flex; flex-direction: column; }
+.t-title { font-size: 30rpx; font-weight: bold; color: #333; margin-bottom: 6rpx; }
+.t-desc { font-size: 24rpx; color: #999; }
+
+.do-btn {
+  margin: 0 !important;
+  padding: 0;
+  width: 150rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  font-size: 24rpx;
+  font-weight: bold;
+  border-radius: 32rpx;
+  background: linear-gradient(90deg, #007aff, #00b4ff);
+  color: #fff;
+  box-shadow: 0 4rpx 10rpx rgba(0, 122, 255, 0.2);
+}
+
+.do-btn.outline {
+  background: #fff;
+  color: #007aff;
+  border: 2rpx solid #007aff;
+  box-shadow: none;
+  line-height: 60rpx; /* 减去边框高度 */
+}

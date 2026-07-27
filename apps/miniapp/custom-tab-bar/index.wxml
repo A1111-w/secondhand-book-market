@@ -1,0 +1,36 @@
+<view class="custom-tabbar">
+  <!-- 首页 -->
+  <view class="tab-item" bindtap="switchTab" data-index="0">
+    <image class="tab-icon" src="{{selected === 0 ? tabList[0].selectedIconPath : tabList[0].iconPath}}" />
+    <text class="{{selected === 0 ? 'active' : ''}}">{{tabList[0].text}}</text>
+  </view>
+
+  <!-- 发布 -->
+  <view class="tab-item" bindtap="switchTab" data-index="1">
+    <image class="tab-icon" src="{{selected === 1 ? tabList[1].selectedIconPath : tabList[1].iconPath}}" />
+    <text class="{{selected === 1 ? 'active' : ''}}">{{tabList[1].text}}</text>
+  </view>
+
+  <!-- 中间加号 -->
+  <view class="add-btn" bindtap="goAddPage">
+    <image src="/images/tab-add.png" class="add-icon" />
+  </view>
+
+  <!-- 消息 -->
+  <view class="tab-item" bindtap="switchTab" data-index="2">
+
+    <view class="icon-wrapper">
+      <image class="tab-icon" src="{{selected === 2 ? tabList[2].selectedIconPath : tabList[2].iconPath}}" />
+      <view class="badge" wx:if="{{tabList[2].badge > 0}}">
+        {{tabList[2].badge > 99 ? '99+' : tabList[2].badge}}
+      </view>
+    </view>
+    <text class="{{selected === 2 ? 'active' : ''}}">{{tabList[2].text}}</text>
+  </view>
+
+  <!-- 我的 -->
+  <view class="tab-item" bindtap="switchTab" data-index="3">
+    <image class="tab-icon" src="{{selected === 3 ? tabList[3].selectedIconPath : tabList[3].iconPath}}" />
+    <text class="{{selected === 3 ? 'active' : ''}}">{{tabList[3].text}}</text>
+  </view>
+</view>

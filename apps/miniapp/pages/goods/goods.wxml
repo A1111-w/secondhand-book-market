@@ -1,0 +1,102 @@
+<!--pages/goods/goods.wxml-->
+<view class="container">
+
+  <!-- 1. 顶部搜索栏 -->
+  <view class="header-fixed">
+    <view class="search-box">
+      <icon type="search" size="14" color="#666" />
+      <input
+        class="search-input"
+        value="{{params.keyword}}"
+        placeholder="搜索商品"
+        confirm-type="search"
+        bindinput="onSearchInput"
+        bindconfirm="onSearchConfirm"
+      />
+    </view>
+  </view>
+
+  <!-- 2. 排序筛选栏 -->
+  <view class="sort-bar">
+    <view class="sort-item {{activeTab === 'general' ? 'active' : ''}}" bindtap="onTapGeneral">综合</view>
+    <view class="sort-item {{activeTab === 'distance' ? 'active' : ''}}" bindtap="onTapDistance">距离</view>
+
+    <!-- 均衡排序按钮 -->
+    <view class="sort-item {{activeTab === 'balance' ? 'active' : ''}}" bindtap="onTapBalance">均衡</view>
+
+    <view class="sort-item {{activeTab === 'price' ? 'active' : ''}}" bindtap="onTapPrice">
+      <text>价格</text>
+      <view class="icon-col">
+        <text class="arrow up {{priceOrder === 1 && activeTab === 'price' ? 'on' : ''}}">▲</text>
+        <text class="arrow down {{priceOrder === 2 && activeTab === 'price' ? 'on' : ''}}">▼</text>
+      </view>
+    </view>
+
+    <picker class="sort-item" range="{{categories}}" bindchange="onTapFilter">
+      <view class="filter-wrap {{params.category ? 'active' : ''}}">
+        筛选 <text class="filter-icon">▼</text>
+      </view>
+    </picker>
+  </view>
+
+  <!-- 均衡排序滑块面板 (仅在选中均衡时显示) -->
+  <view class="balance-panel" wx:if="{{activeTab === 'balance'}}">
+    <view class="slider-labels">
+      <text>价格权重 {{balancePrice}}%</text>
+      <text>{{balanceDistance}}% 距离权重</text>
+    </view>
+    <slider
+      block-size="18"
+      min="0"
+      max="100"
+      step="5"
+      value="{{balancePrice}}"
+      bindchange="onBalanceChange"
+      activeColor="#007aff"
+      backgroundColor="#e9e9e9"
+      block-color="#007aff"
+    />
+  </view>
+
+  <!-- 3. 商品列表 -->
+  <view class="goods-list" style="margin-top: {{activeTab === 'balance' ? '140rpx' : '0'}}">
+    <block wx:for="{{products}}" wx:key="id">
+      <view class="goods-card" bindtap="goToProductDetail" data-id="{{item.id}}">
+        <view class="goods-img-wrapper">
+          <image class="goods-img" src="{{item.images}}" mode="aspectFill" lazy-load />
+          <view class="sold-out-mask" wx:if="{{item.status === 1}}">
+            <text>已售</text>
+          </view>
+        </view>
+
+        <view class="goods-info">
+          <view class="goods-name">
+            <text class="tag" wx:if="{{item.way}}">{{item.way}}</text>
+            {{item.name}}
+          </view>
+
+          <view class="tags-row">
+            <text class="sub-tag">{{item.category}}</text>
+            <text class="sub-tag" wx:if="{{item.distance}}">距{{item.distance}}m</text>
+          </view>
+
+          <view class="price-row">
+            <view class="price">
+              <text class="symbol">¥</text>
+              <text class="num">{{item.price}}</text>
+            </view>
+            <text class="sales">{{item.viewCount}}人看过</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <view class="loading-tip" wx:if="{{isLoading}}">加载中...</view>
+  <view class="empty-tip" wx:if="{{!isLoading && products.length === 0}}">
+    <image src="/images/empty-box.jpg" mode="widthFix" style="width:200rpx; opacity:0.5;"/>
+    <view>暂无相关商品</view>
+  </view>
+  <view class="loading-tip" wx:if="{{!hasMore && products.length > 0}}">没有更多了</view>
+
+</view>

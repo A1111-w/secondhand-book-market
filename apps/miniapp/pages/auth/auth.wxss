@@ -1,0 +1,77 @@
+/* pages/auth/auth.wxss */
+.container {
+  padding: 30rpx;
+  background-color: #f7f8fa;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.status-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60rpx 0;
+  background: #fff;
+  border-radius: 20rpx;
+  margin-bottom: 30rpx;
+}
+.status-title { font-size: 36rpx; font-weight: bold; margin-top: 20rpx; color: #333; }
+.status-desc { font-size: 26rpx; color: #999; margin-top: 10rpx; }
+
+.form-card {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+}
+.form-title { font-size: 32rpx; font-weight: bold; margin-bottom: 30rpx; border-left: 8rpx solid #007aff; padding-left: 16rpx;}
+
+.input-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1rpx solid #f0f0f0;
+  padding: 24rpx 0;
+}
+.label { width: 120rpx; font-size: 30rpx; color: #333; }
+.input { flex: 1; font-size: 30rpx; color: #333; }
+.radio-group { font-size: 30rpx; }
+
+.upload-area {
+  height: 360rpx;
+  background-color: #f2f2f2;
+  border-radius: 16rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2rpx dashed #ccc;
+  overflow: hidden;
+  position: relative;
+}
+.placeholder { display: flex; flex-direction: column; align-items: center; }
+.plus { font-size: 80rpx; color: #ccc; font-weight: 100; }
+.tips-text { font-size: 26rpx; color: #999; margin-top: 10rpx; }
+
+/* 关键：给图片定宽高，否则不显示 */
+.preview-img {
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+}
+
+.privacy-tip {
+  font-size: 24rpx;
+  color: #faad14;
+  margin-top: 20rpx;
+  background: #fffbe6;
+  padding: 16rpx;
+  border-radius: 8rpx;
+}
+
+.submit-btn {
+  background: linear-gradient(90deg, #007aff, #00b4ff);
+  color: #fff;
+  border-radius: 50rpx;
+  margin-top: 40rpx;
+  font-weight: bold;
+  box-shadow: 0 8rpx 20rpx rgba(0, 122, 255, 0.3);
+}

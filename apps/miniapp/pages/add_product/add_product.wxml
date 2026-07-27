@@ -1,0 +1,112 @@
+<view class="page-container">
+
+  <form bindsubmit="handleSubmit">
+
+    <view class="card-section">
+      <view class="image-grid">
+        <block wx:for="{{formData.images}}" wx:key="*this">
+          <view class="image-item">
+            <image class="uploaded-img" src="{{item}}" mode="aspectFill" />
+            <view class="delete-btn" catchtap="deleteImage" data-index="{{index}}">×</view>
+          </view>
+        </block>
+
+        <view class="upload-btn" bindtap="chooseImage" wx:if="{{formData.images.length < 9}}">
+          <text class="plus-icon">+</text>
+          <text class="upload-text">添加图片</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="card-section">
+      <view class="form-item required-item">
+        <text class="label">商品名称</text>
+        <input class="input" placeholder="输入商品名称" data-field="name" bindinput="handleInput" value="{{formData.name}}" />
+      </view>
+
+      <view class="form-item required-item">
+        <text class="label">出售价格</text>
+        <input class="input price-input" placeholder="0.00 (必填)" type="digit" data-field="price" bindinput="handleInput" value="{{formData.price}}" />
+      </view>
+
+      <view class="form-item required-item">
+        <text class="label">商品分类</text>
+        <picker mode="selector" range="{{categories}}" data-field="category" bindchange="handlePickerChange" value="{{categories.indexOf(formData.category)}}">
+          <view class="picker-value">{{formData.category}}</view>
+        </picker>
+      </view>
+
+      <view class="form-item" wx:if="{{formData.category === '二手书'}}">
+        <text class="label">ISBN</text>
+        <input class="input" placeholder="输入或扫码获取 (必填)" data-field="isbn" bindinput="handleInput" value="{{formData.isbn}}" />
+        <image class="scan-icon-inline" src="/images/scan-icon.png" bindtap="onScanCode" />
+      </view>
+
+    </view>
+
+    <view class="card-section">
+      <view class="form-item required-item">
+        <text class="label">联系方式</text>
+        <input class="input" placeholder="微信号/手机 (必填)" data-field="contact" bindinput="handleInput" value="{{formData.contact}}" />
+      </view>
+
+      <view class="form-item">
+        <text class="label">实际位置</text>
+        <input class="input" placeholder="如：XX教学楼 (优先取用户默认)" data-field="position" bindinput="handleInput" value="{{formData.position}}" />
+      </view>
+
+      <view class="form-item required-item">
+        <text class="label">交易方式</text>
+        <picker mode="selector" range="{{ways}}" data-field="way" bindchange="handlePickerChange" value="{{ways.indexOf(formData.way)}}">
+          <view class="picker-value">{{formData.way}}</view>
+        </picker>
+      </view>
+
+      <view class="form-item required-item" wx:if="{{formData.way === '送上门'}}" bindtap="openRangePopup">
+        <text class="label">送货范围</text>
+        <view class="picker-value range-picker">
+          <text wx:if="{{formData.range.length === 0}}" class="placeholder">请选择可送达的区域 (必填)</text>
+          <text wx:else>已选 {{formData.range.length}} 个区域</text>
+          <text class="arrow-right">›</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="card-section">
+      <view class="form-item description-item">
+        <text class="label">商品描述 (可选)</text>
+        <textarea placeholder="详细描述一下商品，更容易出售..." data-field="description" bindinput="handleInput" value="{{formData.description}}" />
+      </view>
+    </view>
+
+    <view class="submit-wrapper">
+      <button class="submit-btn" bindtap="handleSubmit" disabled="{{isSubmitting}}" loading="{{isSubmitting}}">
+        {{isSubmitting ? '正在发布...' : '确认发布'}}
+      </button>
+    </view>
+
+  </form>
+  <view class="popup-mask" wx:if="{{showRangePopup}}" catchtouchmove="preventScroll">
+    <view class="popup-content">
+      <view class="popup-title">选择送货范围</view>
+
+      <view class="select-all-item" bindtap="onRangeSelectAll">
+        <text>{{isSelectAll ? '取消全选' : '全选'}}</text>
+      </view>
+
+      <scroll-view scroll-y class="range-list">
+        <checkbox-group bindchange="onRangeCheckboxChange" class="checkbox-group">
+          <label class="range-item" wx:for="{{addressList}}" wx:key="index">
+            <checkbox value="{{item}}" />
+            <view class="label-text">{{item}}</view>
+          </label>
+        </checkbox-group>
+      </scroll-view>
+
+      <view class="popup-actions">
+        <button class="btn btn-cancel" bindtap="onRangeCancel">取消</button>
+        <button class="btn btn-confirm" bindtap="onRangeConfirm">确认</button>
+      </view>
+    </view>
+  </view>
+</view>

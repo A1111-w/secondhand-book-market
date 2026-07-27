@@ -1,0 +1,92 @@
+<!--pages/search/search.wxml-->
+<view class="search-container">
+
+  <!-- 1. 顶部搜索栏 -->
+  <view class="search-header">
+    <view class="search-input-box">
+      <icon type="search" size="16" color="#999"></icon>
+      <input
+        class="search-input"
+        placeholder="搜索商品、分类..."
+        value="{{keyword}}"
+        bindinput="onInput"
+        bindconfirm="onSearch"
+        confirm-type="search"
+        focus="{{inputFocus}}"
+      />
+      <view class="clear-btn" wx:if="{{keyword}}" bindtap="onClearInput">
+        <icon type="clear" size="14" color="#ccc"></icon>
+      </view>
+    </view>
+    <view class="search-action" bindtap="onSearch">搜索</view>
+  </view>
+
+  <!-- 2. 历史记录 -->
+  <view class="section" wx:if="{{historyList.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">历史搜索</text>
+      <image class="delete-icon" src="/images/icon-delete.png" bindtap="onClearHistory" />
+    </view>
+    <view class="tags-wrapper">
+      <view
+        class="tag"
+        wx:for="{{historyList}}"
+        wx:key="*this"
+        bindtap="onTagClick"
+        data-key="{{item}}"
+      >{{item}}</view>
+    </view>
+  </view>
+
+  <!-- 3. 全校热搜 (猜你想搜) -->
+  <view class="section" wx:if="{{hotKeywords.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">全校热搜 🔥</text>
+      <image class="refresh-icon" src="/images/icon-refresh.png" bindtap="fetchHotKeywords" />
+    </view>
+    <!-- 这里用 flex 布局模拟截图中的双列文字，或者继续用 tag -->
+    <view class="hot-words-grid">
+      <view
+        class="hot-word-item"
+        wx:for="{{hotKeywords}}"
+        wx:key="*this"
+        bindtap="onTagClick"
+        data-key="{{item}}"
+      >
+        <text class="rank-num {{index === 0 ? 'top1' : (index === 1 ? 'top2' : (index === 2 ? 'top3' : ''))}}">{{index + 1}}</text>
+        <text class="word-text">{{item}}</text>
+        <text class="hot-tag-icon" wx:if="{{index < 2}}">热</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 4. 热搜榜单 (横向滚动) -->
+  <view class="hot-ranking-section" wx:if="{{hotProducts.length > 0}}">
+    <view class="ranking-header">
+      <text class="ranking-title">🔥月度好物榜</text>
+    </view>
+
+    <scroll-view scroll-x class="ranking-scroll" enable-flex>
+      <view
+        class="ranking-card"
+        wx:for="{{hotProducts}}"
+        wx:key="id"
+        bindtap="goToProductDetail"
+        data-id="{{item.id}}"
+      >
+        <!-- 榜单角标 -->
+        <view class="badge-wrapper" wx:if="{{index < 3}}">
+          <image class="badge-bg" src="/images/badge-bg.png" wx:if="{{false}}"/> <!-- 如果有背景图 -->
+          <view class="badge-text rank-{{index+1}}">TOP {{index+1}}</view>
+        </view>
+
+        <image class="ranking-img" src="{{item.images}}" mode="aspectFill" />
+        <view class="ranking-info">
+          <text class="ranking-name">{{item.name}}</text>
+          <text class="ranking-heat">{{item._count.history}}人看过</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+</view>

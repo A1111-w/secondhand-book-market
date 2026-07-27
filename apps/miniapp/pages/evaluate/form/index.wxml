@@ -1,0 +1,53 @@
+<!--pages/evaluate/form/index.wxml-->
+<view class="container">
+
+  <view class="header-section">
+    <view class="header-content">
+      <text class="page-title">发表评价</text>
+      <text class="page-sub">您的真实评价能帮助更多同学</text>
+    </view>
+  </view>
+
+  <view class="main-wrapper">
+
+    <view class="product-info-row">
+      <image src="{{productImage}}" mode="aspectFill" class="prod-thumb" />
+      <view class="prod-text">
+        <text class="prod-name">{{productName}}</text>
+        <text class="prod-tip">交易已完成，打个分吧~</text>
+      </view>
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="rating-section">
+      <text class="rating-label">总体体验</text>
+
+      <view class="stars-container">
+        <block wx:for="{{5}}" wx:key="*this">
+          <text
+            class="star-text {{index < rating ? 'active' : ''}}"
+            bindtap="onRate"
+            data-score="{{index + 1}}"
+          >★</text>
+        </block>
+      </view>
+
+      <text class="rating-text">{{ratingText[rating] || '点击星星打分'}}</text>
+    </view>
+
+    <view class="input-section">
+      <textarea
+        class="comment-area"
+        placeholder="展开说说本次交易的细节，商品成色如何？卖家态度怎样？"
+        placeholder-style="color:#ccc; font-size:28rpx;"
+        bindinput="onInput"
+        maxlength="200"
+      />
+      <text class="word-count">{{content.length}}/200</text>
+    </view>
+
+    <button class="submit-btn" bindtap="submitEvaluate">提交评价 (+15积分)</button>
+
+  </view>
+</view>

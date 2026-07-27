@@ -1,0 +1,50 @@
+<view class="page-container">
+  <view class="header">
+    <text class="title">新手上路</text>
+    <text class="subtitle">3分钟学会如何在这个平台“捡漏”和“回血”</text>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text class="num">01</text>
+      <text class="text">如何发布闲置？</text>
+    </view>
+    <view class="content">
+      <text>点击底部导航栏的【发布】按钮，填写商品名称、价格，并上传清晰的实物图片。\n\n💡 小贴士：如果是二手书，可以直接扫描 ISBN 条形码，我们会自动帮你填好书名和介绍哦！</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text class="num">02</text>
+      <text class="text">如何联系卖家？</text>
+    </view>
+    <view class="content">
+      <text>在商品详情页，点击底部的【联系卖家】按钮，即可进入即时聊天。\n\n为了保护隐私，建议优先在平台内沟通。确定意向后，可以查看卖家填写的微信号或手机号（如果有）。</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text class="num">03</text>
+      <text class="text">关于交易方式</text>
+    </view>
+    <view class="content">
+      <text>我们支持【自提】和【送上门】两种方式。🏃 自提：买家去卖家指定的地点（如教学楼、食堂）取货。\n📦 送上门：卖家会在发布时设置送货范围（如“仅限南区宿舍”），下单前请确认是否在范围内。</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">
+      <text class="num">04</text>
+      <text class="text">什么是均衡排序？</text>
+    </view>
+    <view class="content">
+      <text>这是我们独创的智能排序功能！🎚️ 在首页筛选栏选择【均衡排序】后，会出现一个调节滑块。\n\n你可以自由决定【价格】和【距离】谁更重要：\n👉 想要离得近？增加距离权重。\n👉 想要更便宜？增加价格权重。\n\n系统会综合计算，为你推荐性价比最高、距离最合适的商品。</text>
+    </view>
+  </view>
+
+  <view class="footer">
+    <button class="btn" bindtap="goHome">这就去逛逛</button>
+  </view>
+</view>

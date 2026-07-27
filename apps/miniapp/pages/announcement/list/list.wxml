@@ -1,0 +1,28 @@
+<!--pages/announcement/list/list.wxml-->
+<view class="container">
+  <block wx:if="{{isLoading}}">
+    <view class="loading">加载中...</view>
+  </block>
+
+  <block wx:elif="{{list.length > 0}}">
+    <view class="list">
+      <view
+        class="item"
+        wx:for="{{list}}"
+        wx:key="id"
+        bindtap="goToDetail"
+        data-id="{{item.id}}"
+      >
+        <view class="item-header">
+          <text class="title">{{item.title}}</text>
+          <text class="date">{{item.dateStr}}</text>
+        </view>
+        <view class="item-desc">{{item.content}}</view>
+        </view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="empty">暂无公告</view>
+  </block>
+</view>

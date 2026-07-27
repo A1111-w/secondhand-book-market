@@ -1,0 +1,127 @@
+<!--pages/chat/chat.wxml-->
+<view class="page-container">
+  <product-picker
+    show="{{showProductPicker}}"
+    sellerId="{{otherUserId}}"
+    targetProduct="{{targetProduct}}"
+    bind:close="onClosePicker"
+    bind:send="onPickerSend"
+  />
+  <image
+    class="chat-bg-image"
+    src="/images/chat_bg.jpg"
+    mode="aspectFill"
+  />
+
+  <view class="chat-bg-blocker"></view>
+  <view class="guess-bar" wx:if="{{targetProduct}}" bindtap="onSendTargetProduct" style="bottom: {{showMorePanel ? '330rpx' : '130rpx'}}">
+    <image class="guess-img" src="{{targetProduct.image}}" mode="aspectFill" />
+    <view class="guess-info">
+      <text class="guess-title">发送链接：{{targetProduct.name}}</text>
+      <text class="guess-price">¥{{targetProduct.price}}</text>
+    </view>
+    <text class="guess-arrow">发送 ></text>
+  </view>
+  <!-- 消息列表 -->
+  <!--
+    scroll-y: 允许纵向滚动
+    scroll-top: 控制滚动条位置，用于自动滚动到底部
+  -->
+  <scroll-view
+    class="message-scroll-view"
+    scroll-y
+    scroll-top="{{scrollTop}}"
+  >
+    <view class="message-list" id="messageList">
+
+      <!-- 加载提示 -->
+      <view class="tips-wrapper" wx:if="{{isLoading}}">
+        <text class="tips-text">正在加载历史消息...</text>
+      </view>
+
+      <!-- 消息气泡 -->
+      <block wx:for="{{messageList}}" wx:key="id">
+        <!--
+          根据 fromUserId 判断是 "sent" (我发的)还是 "received" (对方发的)
+          注意: myUserId 必须是数字类型才能正确比较
+        -->
+        <view
+          class="message-item {{item.fromUserId === myUserId ? 'sent' : 'received'}}"
+        >
+          <!-- 对方头像 -->
+          <image
+            class="avatar"
+            wx:if="{{item.fromUserId !== myUserId}}"
+            src="{{otherUserAvatar}}"
+          />
+          <!-- 我的头像 -->
+          <image
+            class="avatar"
+            wx:if="{{item.fromUserId === myUserId}}"
+            src="{{myAvatar}}"
+          />
+
+          <!-- 气泡 -->
+          <view class="bubble" wx:if="{{item.type === 0 || !item.type}}">
+            <text>{{item.content}}</text>
+          </view>
+          <view class="bubble image-bubble" wx:if="{{item.type === 1}}" bindtap="previewChatImage" data-src="{{item.content}}">
+             <image src="{{item.content}}" mode="widthFix" style="max-width: 300rpx; border-radius: 8rpx;" />
+          </view>
+          <view class="bubble product-bubble" wx:if="{{item.type === 2}}">
+             <image class="bubble-prod-img" src="{{item.content.image}}" mode="aspectFill"/>
+             <view class="bubble-prod-info">
+                <text class="bubble-prod-name">{{item.content.name}}</text>
+                <text class="bubble-prod-price">¥ {{item.content.price}}</text>
+             </view>
+          </view>
+
+        </view>
+      </block>
+    </view>
+  </scroll-view>
+
+  <!-- 底部输入栏 -->
+  <view class="footer-area">
+    <view class="chat-input-bar">
+      <view class="plus-btn" bindtap="onToggleMore">
+        <text class="plus-icon">+</text>
+      </view>
+
+      <input
+        class="chat-input"
+        value="{{inputValue}}"
+        bindinput="onInput"
+        bindconfirm="onSend"
+        confirm-type="send"
+        placeholder="输入消息..."
+        cursor-spacing="10"
+        bindfocus="onInputFocus"
+      />
+
+      <button
+        class="send-btn"
+        type="primary"
+        size="mini"
+        bindtap="onSend"
+        disabled="{{inputValue.length === 0}}"
+      >
+        发送
+      </button>
+    </view>
+
+    <view class="more-panel" wx:if="{{showMorePanel}}">
+      <view class="panel-item" bindtap="onChooseImage">
+        <view class="panel-icon-wrapper">
+          <image class="panel-icon" src="/images/icon-image.png" /> </view>
+        <text>照片</text>
+      </view>
+
+      <view class="panel-item" bindtap="onSelectProduct">
+        <view class="panel-icon-wrapper">
+          <image class="panel-icon" src="/images/icon-product.png" /> </view>
+        <text>商品</text>
+      </view>
+    </view>
+  </view>
+</view>

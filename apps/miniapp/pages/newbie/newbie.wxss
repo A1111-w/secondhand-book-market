@@ -1,0 +1,72 @@
+/* pages/newbie/newbie.wxss */
+.page-container {
+  padding: 40rpx 30rpx;
+  background-color: #fff;
+  min-height: 100vh;
+}
+
+.header {
+  margin-bottom: 60rpx;
+  border-left: 8rpx solid #007aff;
+  padding-left: 24rpx;
+}
+
+.title {
+  display: block;
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 12rpx;
+}
+
+.subtitle {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.section {
+  margin-bottom: 50rpx;
+  background-color: #f9f9f9;
+  border-radius: 16rpx;
+  padding: 30rpx;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.num {
+  font-size: 40rpx;
+  font-weight: 900;
+  color: #e0e0e0;
+  margin-right: 16rpx;
+  font-style: italic;
+}
+
+.text {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.content {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.8;
+  white-space: pre-wrap; /* 支持换行 */
+}
+
+.footer {
+  margin-top: 60rpx;
+  padding-bottom: 40rpx;
+}
+
+.btn {
+  background: linear-gradient(90deg, #007aff, #00b4ff);
+  color: #fff;
+  border-radius: 50rpx;
+  font-weight: bold;
+  box-shadow: 0 8rpx 20rpx rgba(0, 122, 255, 0.3);
+}

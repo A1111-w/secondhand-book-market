@@ -1,0 +1,24 @@
+<!--pages/product_selector/index.wxml-->
+<view class="selector-container">
+  <view class="header">选择要发送的商品</view>
+
+  <scroll-view scroll-y class="list">
+    <view
+      class="item"
+      wx:for="{{products}}"
+      wx:key="id"
+      bindtap="onSelect"
+      data-item="{{item}}"
+    >
+      <image class="img" src="{{item.images}}" mode="aspectFill"/>
+      <view class="info">
+        <view class="name-row">
+          <text class="name">{{item.name}}</text>
+          <text class="tag" wx:if="{{item.isTarget}}">当前咨询</text>
+        </view>
+        <text class="price">¥{{item.price}}</text>
+      </view>
+      <button size="mini" class="send-btn">发送</button>
+    </view>
+  </scroll-view>
+</view>

@@ -1,0 +1,90 @@
+.custom-tabbar {
+  position: fixed;
+  bottom: 40rpx; /* 向上悬浮一点 */
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 90%; /* 不要占满全宽，看起来更悬浮 */
+  height: 120rpx;
+  background-color: #ffffff;
+  border-radius: 60rpx; /* 四个角全部圆化，显示为上下都是半圆 */
+  box-shadow: 0 0 20rpx rgba(0, 0, 0, 0.15); /* 阴影让它更立体 */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000;
+}
+
+
+/* 普通 tab 按钮 */
+.tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 24rpx;
+  color: #888;
+  flex: 1;
+}
+
+.tab-item .active {
+  color: #007aff;
+}
+
+.tab-icon {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+/* 中间加号按钮 */
+
+.tabbar-center {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: -50rpx; /* 稍微上浮 */
+  box-shadow: 0 5rpx 15rpx rgba(0, 0, 0, 0.2);
+}
+
+.add-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%; /* 关键：半径为宽高一半 */
+  object-fit: cover;  /* 保持图片比例，填充容器 */
+}
+
+/* 让底部安全区的圆角不被遮挡 */
+page {
+  padding-bottom: 160rpx;
+  box-sizing: border-box;
+}
+
+.icon-wrapper {
+  position: relative;
+  display: flex;          /* 消除图片底部的微小间隙 */
+  justify-content: center;
+  align-items: center;
+}
+
+/* 红点样式 */
+.badge {
+  position: absolute;
+  top: -6rpx;
+  right: -12rpx;
+  background-color: #ff4d4f;
+  color: #fff;
+  font-size: 20rpx;
+  font-weight: bold;
+  border-radius: 20rpx;
+  padding: 0 8rpx;
+  min-width: 28rpx;
+  height: 28rpx;
+  line-height: 28rpx;
+  text-align: center;
+  box-shadow: 0 2rpx 4rpx rgba(0,0,0,0.2);
+  z-index: 10;
+}

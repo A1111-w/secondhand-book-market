@@ -1,0 +1,41 @@
+<!--pages/my_products/my_products.wxml-->
+<view class="page-container">
+  <block wx:if="{{products.length > 0}}">
+    <view class="product-list">
+
+      <view class="product-item" wx:for="{{products}}" wx:key="id">
+
+        <view class="product-main-content">
+          <view class="product-info">
+            <text class="product-name">{{item.name}}</text>
+            <text class="product-price">¥ {{item.price}}</text>
+            <text class="product-time">发布于: {{item.createdAtFormatted}}</text>
+          </view>
+          <image class="product-image" src="{{item.images}}" mode="aspectFill" />
+        </view>
+
+        <view class="product-actions">
+          <button
+            class="action-btn status-btn"
+            size="mini"
+            bindtap="onToggleStatus"
+            data-id="{{item.id}}"
+            data-status="{{item.status}}"
+            style="{{item.status === 1 ? 'color:#999; border-color:#ccc;' : 'color:#faad14; border-color:#faad14;'}}"
+          >
+            {{item.status === 1 ? '重新上架' : '标记已售'}}
+          </button>
+          <button class="action-btn edit-btn" size="mini" bindtap="onEdit" data-id="{{item.id}}">修改</button>
+          <button class="action-btn delete-btn" size="mini" bindtap="onDelete" data-id="{{item.id}}">删除</button>
+        </view>
+
+      </view>
+    </view>
+  </block>
+
+  <view class="empty-tip" wx:else>
+    <image class="empty-image" src="/images/empty-box.jpg" mode="widthFix" />
+    <text>您还没有发布任何商品哦~</text>
+    <button class="post-btn" bindtap="goToPost">去发布</button>
+  </view>
+</view>

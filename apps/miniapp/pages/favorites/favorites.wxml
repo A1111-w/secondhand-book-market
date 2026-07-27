@@ -1,0 +1,103 @@
+<!--pages/favorites/favorites.wxml-->
+<view class="page-container">
+  <!-- 顶部管理栏 -->
+  <view class="top-bar">
+    <view class="title">共 {{rawData.length}} 件宝贝</view>
+    <view class="actions">
+      <!-- 一个小彩蛋功能：切换排序 -->
+      <view class="sort-btn" bindtap="swapWayOrder">⇅ 切换排序</view>
+      <view class="edit-btn" bindtap="toggleEdit">{{isEditMode ? '完成' : '管理'}}</view>
+    </view>
+  </view>
+
+  <scroll-view scroll-y class="list-container">
+    <block wx:if="{{groupedList.length > 0}}">
+
+      <!-- 一级循环：交易方式 (自提/送上门) -->
+      <view class="way-group" wx:for="{{groupedList}}" wx:for-item="wayGroup" wx:for-index="wayIdx" wx:key="name">
+
+        <!-- 一级标题 -->
+        <view class="way-header">
+          <view class="way-tag {{wayGroup.name === '送上门' ? 'delivery' : 'pickup'}}">{{wayGroup.name}}</view>
+        </view>
+
+        <!-- 二级循环：分类 -->
+        <view class="category-group" wx:for="{{wayGroup.subGroups}}" wx:for-item="subGroup" wx:for-index="subIdx" wx:key="name">
+
+          <!-- 二级标题 -->
+          <view class="category-header">
+            <text class="dot">•</text> {{subGroup.name}}
+          </view>
+
+          <!-- 商品列表 -->
+          <view class="product-list">
+            <view class="product-item"
+                  wx:for="{{subGroup.items}}"
+                  wx:for-item="item"
+                  wx:for-index="itemIdx"
+                  wx:key="id"
+                  bindtap="onCheckItem"
+                  data-way-idx="{{wayIdx}}"
+                  data-sub-idx="{{subIdx}}"
+                  data-item-idx="{{itemIdx}}">
+
+              <!-- 复选框 -->
+              <view class="checkbox {{item.checked ? 'checked' : ''}}">
+                <icon wx:if="{{item.checked}}" type="success" size="18" color="#fff"/>
+              </view>
+
+              <!-- 商品卡片 -->
+              <view class="card-content">
+                <image class="prod-img" src="{{item.product.images}}" mode="aspectFill" />
+                <view class="prod-info">
+                  <view class="prod-title">{{item.product.name}}</view>
+                  <view class="prod-seller">
+                    <image class="seller-avatar" src="{{item.product.user.avatar}}" />
+                    <text>{{item.product.user.username}}</text>
+                  </view>
+                  <view class="prod-bottom">
+                    <text class="price">¥<text class="price-num">{{item.product.price}}</text></text>
+                    <text class="time">{{item.product.createdAtFormatted}}</text> <!-- 需要后端或前端格式化 -->
+                  </view>
+                </view>
+              </view>
+
+            </view>
+          </view>
+        </view>
+      </view>
+      <view style="height: 120rpx;"></view> <!-- 底部垫高 -->
+    </block>
+
+    <view wx:else class="empty-state">
+      <image src="/images/empty-box.jpg" mode="widthFix" class="empty-img"/>
+      <text>还没有收藏任何宝贝哦</text>
+    </view>
+  </scroll-view>
+
+  <!-- 底部结算栏 -->
+  <view class="bottom-bar">
+    <view class="select-all" bindtap="toggleSelectAll">
+      <view class="checkbox {{allSelected ? 'checked' : ''}}">
+        <icon wx:if="{{allSelected}}" type="success" size="18" color="#fff"/>
+      </view>
+      <text>全选</text>
+    </view>
+
+    <view class="total-section" wx:if="{{!isEditMode}}">
+      <text class="total-label">合计:</text>
+      <text class="total-price">¥{{totalPrice}}</text>
+    </view>
+
+    <block wx:if="{{!isEditMode}}">
+      <button class="action-btn checkout-btn" bindtap="handleCheckout">
+        去结算({{selectedCount}})
+      </button>
+    </block>
+    <block wx:else>
+      <button class="action-btn delete-btn" bindtap="handleBatchDelete">
+        删除({{selectedCount}})
+      </button>
+    </block>
+  </view>
+</view>

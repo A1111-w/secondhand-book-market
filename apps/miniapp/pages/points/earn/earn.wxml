@@ -1,0 +1,77 @@
+<view class="container">
+
+  <view class="header-section">
+    <view class="header-text">
+      <text class="title">积分中心</text>
+      <text class="sub-title">做任务 / 充值 快速获取积分</text>
+    </view>
+    <view class="points-badge">
+      <text class="label">当前余额</text>
+      <text class="num">{{currentPoints}}</text>
+    </view>
+  </view>
+
+  <view class="main-wrapper">
+
+    <block wx:if="{{!isIOS}}">
+      <view class="section-title">快捷充值</view>
+      <view class="recharge-grid">
+        <view
+          class="recharge-card"
+          wx:for="{{rechargeOptions}}"
+          wx:key="price"
+          bindtap="handleRecharge"
+          data-price="{{item.price}}"
+          data-points="{{item.points}}"
+        >
+          <view class="card-top">
+            <text class="p-num">{{item.points}}</text>
+            <text class="p-unit">积分</text>
+          </view>
+          <text class="p-price">¥{{item.price}}</text>
+
+          <view class="tag" wx:if="{{item.tag}}">{{item.tag}}</view>
+        </view>
+      </view>
+    </block>
+
+    <view wx:else class="ios-box">
+      <text>🍎 根据相关规范，iOS端暂不提供充值功能\n请通过下方任务获取积分</text>
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="section-title">每日任务</view>
+    <view class="task-list">
+
+      <view class="task-item">
+        <view class="icon-wrap video-bg">
+          <image src="/images/speaker-icon.png" class="t-icon" mode="aspectFit" />
+        </view>
+        <view class="t-content">
+          <text class="t-title">观看激励视频</text>
+          <text class="t-desc">完整观看广告即可获得奖励</text>
+        </view>
+        <button class="do-btn" bindtap="handleWatchVideo">
+          <text>+50 积分</text>
+        </button>
+      </view>
+
+      <view class="task-item">
+        <view class="icon-wrap comment-bg">
+          <image src="/images/icon-evaluate.png" class="t-icon" mode="aspectFit" />
+        </view>
+        <view class="t-content">
+          <text class="t-title">评价已购商品</text>
+          <text class="t-desc">您的真实评价对他人很有帮助</text>
+        </view>
+        <button class="do-btn outline" bindtap="goToEvaluate">
+          <text>+15 积分</text>
+        </button>
+      </view>
+
+    </view>
+
+    <view style="height: 60rpx;"></view>
+  </view>
+</view>

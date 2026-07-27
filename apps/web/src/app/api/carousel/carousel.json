@@ -1,0 +1,6 @@
+[
+  { "id": 1, "url": "/images/1.png", "title": "轮播图1" },
+  { "id": 2, "url": "/images/2.png", "title": "轮播图2" },
+  { "id": 3, "url": "/images/3.png", "title": "轮播图3" },
+  { "id": 4, "url": "/images/4.png", "title": "轮播图4" }
+]

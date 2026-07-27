@@ -1,0 +1,168 @@
+/* pages/evaluate/form/index.wxss */
+
+/* 1. 页面容器：强制拉伸，防止宽度塌陷 */
+.container {
+  min-height: 100vh;
+  background-color: #f7f8fa;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* 【核心】子元素占满宽度 */
+}
+
+/* 2. 顶部 Header */
+.header-section {
+  width: 100%;
+  padding: 60rpx 40rpx 140rpx; /* 底部留白给卡片重叠 */
+  background: linear-gradient(135deg, #007aff, #00c6ff);
+  box-sizing: border-box;
+  color: #fff;
+  border-bottom-left-radius: 40rpx;
+  border-bottom-right-radius: 40rpx;
+  flex-shrink: 0;
+}
+
+.page-title { font-size: 48rpx; font-weight: bold; margin-bottom: 12rpx; display: block; }
+.page-sub { font-size: 26rpx; opacity: 0.8; }
+
+/* 3. 白色主体卡片 */
+.main-wrapper {
+  flex: 1; /* 撑满剩余高度 */
+  width: calc(100% - 48rpx); /* 左右留边 24rpx */
+  margin: -80rpx auto 40rpx; /* 向上重叠 80rpx，底部留点空隙 */
+  background: #fff;
+  border-radius: 32rpx; /* 四周圆角 */
+  padding: 40rpx 30rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.06);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- 商品信息 --- */
+.product-info-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+.prod-thumb {
+  width: 100rpx; height: 100rpx;
+  border-radius: 12rpx;
+  background-color: #f0f0f0;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+}
+.prod-text { display: flex; flex-direction: column; justify-content: center; }
+.prod-name { font-size: 32rpx; font-weight: bold; color: #333; margin-bottom: 8rpx; }
+.prod-tip { font-size: 24rpx; color: #999; }
+
+.divider { height: 1rpx; background: #f0f0f0; margin-bottom: 40rpx; }
+
+/* --- 星星评分 (垂直居中核心区) --- */
+.rating-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 水平居中 */
+  margin-bottom: 50rpx;
+}
+.rating-label { font-size: 30rpx; font-weight: bold; color: #333; margin-bottom: 24rpx; }
+
+.stars-container {
+  display: flex;
+  gap: 24rpx; /* 星星之间的间距 */
+  margin-bottom: 20rpx;
+}
+.rating-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50rpx;
+}
+.rating-label { font-size: 30rpx; font-weight: bold; color: #333; margin-bottom: 20rpx; }
+
+.stars-container {
+  display: flex;
+  gap: 20rpx; /* 星星间距 */
+  margin-bottom: 20rpx;
+}
+
+/* 星星文字样式 */
+.star-text {
+  font-size: 80rpx;       /*以此控制星星大小*/
+  line-height: 1;         /* 防止行高撑开额外空间 */
+  color: #e0e0e0;         /* 默认灰色 (未选中) */
+  transition: all 0.2s;
+}
+
+/* 选中状态 (金橙色) */
+.star-text.active {
+  color: #ffb400;
+  text-shadow: 0 4rpx 10rpx rgba(255, 180, 0, 0.4); /* 加点发光效果更像星星 */
+  transform: scale(1.1);  /* 选中稍微大一点 */
+}
+
+.rating-text {
+  font-size: 28rpx;
+  color: #ff9000;
+  font-weight: bold;
+  height: 40rpx;
+}
+
+.rating-text {
+  font-size: 28rpx;
+  color: #ff9000;
+  font-weight: bold;
+  height: 40rpx; /* 占位防止文字跳动 */
+}
+
+/* --- 输入框 --- */
+.input-section {
+  position: relative;
+  background-color: #f9f9f9;
+  border-radius: 20rpx;
+  padding: 24rpx;
+  margin-bottom: 50rpx;
+  border: 2rpx solid transparent;
+  transition: all 0.3s;
+}
+/* 输入框聚焦时高亮边框 */
+.input-section:focus-within {
+  background-color: #fff;
+  border-color: #007aff;
+  box-shadow: 0 0 10rpx rgba(0, 122, 255, 0.1);
+}
+
+.comment-area {
+  width: 100%;
+  height: 240rpx;
+  font-size: 30rpx;
+  line-height: 1.6;
+  color: #333;
+}
+.word-count {
+  position: absolute;
+  bottom: 20rpx; right: 24rpx;
+  font-size: 24rpx; color: #ccc;
+}
+
+/* --- 提交按钮 --- */
+.submit-btn {
+  width: 100% !important;
+  height: 96rpx;
+  line-height: 96rpx;
+  background: linear-gradient(90deg, #007aff, #00b4ff);
+  color: #fff;
+  font-size: 34rpx;
+  font-weight: bold;
+  border-radius: 48rpx;
+  box-shadow: 0 10rpx 20rpx rgba(0, 122, 255, 0.3);
+  padding: 0;
+  margin: 0;
+  /* 如果希望按钮在最底部，可以使用 margin-top: auto */
+  margin-top: auto;
+}
+.submit-btn:active {
+  opacity: 0.9;
+  transform: scale(0.98);
+}
