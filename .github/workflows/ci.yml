@@ -15,8 +15,8 @@ jobs:
       DATABASE_URL: mysql://ci:ci@127.0.0.1:3306/ci
       JWT_SECRET: ci-only-secret-with-at-least-32-characters
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
